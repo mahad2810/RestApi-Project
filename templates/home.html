@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade2Algo - Where Innovation Meets Execution</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="home-page">
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="images/logo-large.png" alt="Trade2Algo Logo" class="logo">
+            <span class="version">Trade2Algo(2.0.0.5)</span>
+            <span class="powered-by">(Powered by Trade2Algo Fintech)</span>
+        </div>
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <nav class="side-nav">
+            <ul>
+                <!-- Main Navigation -->
+                <li class="nav-section-title">Main</li>
+                <li><a href="home.html" class="active"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="#" id="login-link"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
+                <li><a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+                
+                <li class="nav-divider"></li>
+                
+                <!-- Trading Section -->
+                <li class="nav-section-title">Trading</li>
+                <li><a href="place-order.html"><i class="fas fa-plus-circle"></i> <span>Place Order</span></a></li>
+                <li><a href="order-book.html"><i class="fas fa-book"></i> <span>Order Book</span></a></li>
+                <li><a href="trade-book.html"><i class="fas fa-exchange-alt"></i> <span>Trade Book</span></a></li>
+                <li><a href="positions-book.html"><i class="fas fa-chart-line"></i> <span>Positions Book</span></a></li>
+                
+                <li class="nav-divider"></li>
+                
+                <!-- Information Section -->
+                <li class="nav-section-title">Information</li>
+                <li><a href="#features"><i class="fas fa-star"></i> <span>Features</span></a></li>
+                <li><a href="#pricing"><i class="fas fa-tags"></i> <span>Pricing</span></a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
+                <li><a href="help.html"><i class="fas fa-question-circle"></i> <span>Help</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="page-title">Trade2Algo</h1>
+                </div>
+                <div class="user-controls">
+                    <a href="#" class="btn-user"><i class="fas fa-user-circle"></i></a>
+                    <a href="#" class="btn-settings"><i class="fas fa-cog"></i></a>
+                    <a href="#" class="btn-notifications"><i class="fas fa-bell"></i></a>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <img src="images/logo-large.png" alt="Trade2Algo Large Logo">
+                </div>
+                <h1>Where Innovation Meets Execution</h1>
+                <p class="hero-tagline">Advanced trading solutions for modern investors</p>
+                <div class="hero-buttons">
+                    <a href="#" id="hero-login-btn" class="btn btn-primary">Get Started</a>
+                    <a href="#demo" class="btn btn-secondary">Watch Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <section id="features" class="features-section">
+                <div class="section-container">
+                    <h2 class="section-title">Powerful Trading Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Real-time Analytics</h3>
+                            <p>Monitor market movements with advanced charting tools and real-time data feeds.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3>Lightning Fast Execution</h3>
+                            <p>Execute trades with minimal latency through our optimized trading infrastructure.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>Algorithmic Trading</h3>
+                            <p>Create and deploy custom trading algorithms with our intuitive strategy builder.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Risk Management</h3>
+                            <p>Protect your portfolio with advanced risk management tools and position sizing.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Mobile Trading</h3>
+                            <p>Trade on-the-go with our responsive mobile platform, available on all devices.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h3>24/7 Support</h3>
+                            <p>Get assistance anytime with our dedicated customer support team.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="platforms" class="platforms-section">
+                <div class="section-container">
+                    <h2 class="section-title">Multiple Markets, One Platform</h2>
+                    <div class="platforms-content">
+                        <div class="platforms-text">
+                            <p>Trade2Algo provides seamless access to multiple markets and asset classes:</p>
+                            <ul class="platforms-list">
+                                <li><i class="fas fa-check"></i> Equities</li>
+                                <li><i class="fas fa-check"></i> Futures & Options</li>
+                                <li><i class="fas fa-check"></i> Commodities</li>
+                                <li><i class="fas fa-check"></i> Currency Derivatives</li>
+                            </ul>
+                            <p>Our platform connects to all major Indian exchanges including NSE, BSE, MCX, and more.</p>
+                            <a href="#" class="btn btn-outline">View All Markets</a>
+                        </div>
+                        <div class="platforms-image">
+                            <img src="images/platform-screenshot.png" alt="Trade2Algo Platform" class="platform-img">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pricing" class="pricing-section">
+                <div class="section-container">
+                    <h2 class="section-title">Simple, Transparent Pricing</h2>
+                    <div class="pricing-cards">
+                        <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Basic</h3>
+                                <div class="pricing-price">
+                                    <span class="currency">₹</span>
+                                    <span class="amount">499</span>
+                                    <span class="period">/month</span>
+                                </div>
+                            </div>
+                            <div class="pricing-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Equity Trading</li>
+                                    <li><i class="fas fa-check"></i> Basic Charting Tools</li>
+                                    <li><i class="fas fa-check"></i> Market Depth</li>
+                                    <li><i class="fas fa-check"></i> 5 Watchlists</li>
+                                    <li><i class="fas fa-times"></i> Algorithmic Trading</li>
+                                    <li><i class="fas fa-times"></i> Advanced Analytics</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-action">
+                                <a href="#" class="btn btn-outline pricing-login-btn">Get Started</a>
+                            </div>
+                        </div>
+                        <div class="pricing-card featured">
+                            <div class="pricing-badge">Most Popular</div>
+                            <div class="pricing-header">
+                                <h3>Pro</h3>
+                                <div class="pricing-price">
+                                    <span class="currency">₹</span>
+                                    <span class="amount">999</span>
+                                    <span class="period">/month</span>
+                                </div>
+                            </div>
+                            <div class="pricing-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Everything in Basic</li>
+                                    <li><i class="fas fa-check"></i> F&O Trading</li>
+                                    <li><i class="fas fa-check"></i> Advanced Charting</li>
+                                    <li><i class="fas fa-check"></i> Unlimited Watchlists</li>
+                                    <li><i class="fas fa-check"></i> Basic Algorithmic Trading</li>
+                                    <li><i class="fas fa-times"></i> Advanced Analytics</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-action">
+                                <a href="#" class="btn btn-primary pricing-login-btn">Get Started</a>
+                            </div>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Enterprise</h3>
+                                <div class="pricing-price">
+                                    <span class="currency">₹</span>
+                                    <span class="amount">1999</span>
+                                    <span class="period">/month</span>
+                                </div>
+                            </div>
+                            <div class="pricing-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Everything in Pro</li>
+                                    <li><i class="fas fa-check"></i> All Market Segments</li>
+                                    <li><i class="fas fa-check"></i> Advanced Algorithmic Trading</li>
+                                    <li><i class="fas fa-check"></i> API Access</li>
+                                    <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                                    <li><i class="fas fa-check"></i> Dedicated Support</li>
+                                </ul>
+                            </div>
+                            <div class="pricing-action">
+                                <a href="#" class="btn btn-outline pricing-login-btn">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="testimonials" class="testimonials-section">
+                <div class="section-container">
+                    <h2 class="section-title">What Our Clients Say</h2>
+                    <div class="testimonials-slider">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Trade2Algo has completely transformed my trading experience. The platform is intuitive, fast, and packed with powerful features that have helped me improve my trading results."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="images/avatar-1.png" alt="Testimonial Avatar">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Rajesh Sharma</h4>
+                                    <p>Professional Trader, Mumbai</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="about-section">
+                <div class="section-container">
+                    <h2 class="section-title">About Trade2Algo</h2>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <p>Trade2Algo is a leading fintech company specializing in advanced trading solutions for retail and institutional investors. Founded in 2018, we've been at the forefront of innovation in the trading technology space.</p>
+                            <p>Our mission is to democratize access to sophisticated trading tools and empower traders of all levels to achieve their financial goals.</p>
+                            <div class="about-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">50,000+</div>
+                                    <div class="stat-label">Active Users</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">₹500Cr+</div>
+                                    <div class="stat-label">Daily Volume</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">99.9%</div>
+                                    <div class="stat-label">Uptime</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-image">
+                            <img src="images/about-image.png" alt="Trade2Algo Office">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cta" class="cta-section">
+                <div class="section-container">
+                    <div class="cta-content">
+                        <h2>Ready to Transform Your Trading?</h2>
+                        <p>Join thousands of traders who have already elevated their trading experience with Trade2Algo.</p>
+                        <div class="cta-buttons">
+                            <a href="#" class="btn btn-primary pricing-login-btn">Get Started Now</a>
+                            <a href="#contact" class="btn btn-secondary">Contact Sales</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Login Modal -->
+        <div class="modal" id="login-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="images/logo-small.png" alt="Trade2Algo" class="modal-logo">
+                    <h2>Login</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember" class="checkbox-label">Remember me</label>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-login">Login</button>
+                        </div>
+                    </form>
+                    <div class="login-links">
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                        <span class="separator">|</span>
+                        <a href="#" class="contact-support">Contact Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="home-footer">
+            <div class="footer-container">
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Trade2Algo</h3>
+                        <p>Where Innovation Meets Execution</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Products</h4>
+                        <ul>
+                            <li><a href="#">Web Platform</a></li>
+                            <li><a href="#">Mobile App</a></li>
+                            <li><a href="#">API Access</a></li>
+                            <li><a href="#">Algo Trading</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Webinars</a></li>
+                            <li><a href="#">Market Insights</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Press</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Risk Disclosure</a></li>
+                            <li><a href="#">Security</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Trade2Algo. All rights reserved.</p>
+                    <p>SEBI Registration No: INZ000000000</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

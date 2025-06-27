@@ -1,0 +1,6 @@
+This directory will contain the following images:
+- logo.png - The Trade2Algo small logo for the header
+- logo-small.png - The Trade2Algo small logo for modals
+- logo-large.png - The Trade2Algo large logo for the welcome screen
+
+You'll need to create these images based on the Trade2Algo branding shown in the screenshots. 

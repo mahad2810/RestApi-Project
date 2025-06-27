@@ -1,0 +1,16 @@
+This directory should contain the following images for the home page:
+
+1. logo.png - The Trade2Algo small logo for the header
+2. logo-small.png - The Trade2Algo small logo for modals
+3. logo-large.png - The Trade2Algo large logo for welcome screen
+4. platform-screenshot.png - A screenshot of the trading platform interface
+5. about-image.png - An image of the company office or team
+6. avatar-1.png - A profile picture for the testimonial
+
+You'll need to create these images based on the Trade2Algo branding shown in the screenshots.
+
+For the platform-screenshot.png, you can use a screenshot of the order-book.html or trade-book.html pages.
+
+For placeholder images, you can use:
+- https://placeholder.com/ to generate placeholder images
+- Or stock photos from free stock photo sites like Unsplash or Pexels 
