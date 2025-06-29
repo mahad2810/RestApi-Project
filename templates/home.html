@@ -3,388 +3,1825 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade2Algo - Where Innovation Meets Execution</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Trade2Algo - Professional Trading Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.logo i {
+    font-size: 2rem;
+}
+
+.tagline {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.2rem;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* User Profile Styles */
+.profile-section {
+    margin-top: 2rem;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.profile-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.profile-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-details {
+    padding: 2rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.detail-value {
+    color: #333;
+}
+
+/* Order Status Styles */
+.orders-section {
+    margin-top: 2rem;
+}
+
+.orders-table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.orders-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #666;
+}
+
+.orders-table tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-badge.complete {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.info-message,
+.error-message {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.info-message {
+    background: #cce5ff;
+    color: #004085;
+    border-left: 5px solid #004085;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #721c24;
+}
+
+.info-message i,
+.error-message i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #e9ecef;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-outline:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.content-section {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section-header h2 {
+    color: #333;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-header p {
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* Welcome Section */
+.welcome-section {
+    background: white;
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.welcome-logo {
+    font-size: 4rem;
+    color: #667eea;
+    margin-bottom: 2rem;
+}
+
+.welcome-content h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Order Form */
+.order-form-container {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Tables */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+.data-table td {
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.data-table tbody tr:hover {
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Trade Book Row Colors */
+.trade-buy {
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.trade-sell {
+    background: rgba(239, 68, 68, 0.05);
+}
+
+/* Badges and Status */
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge.buy {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.badge.sell {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+.status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status.complete {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.status.rejected {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+.status.pending {
+    background: rgba(251, 191, 36, 0.1);
+    color: #d97706;
+}
+
+/* Empty State */
+.empty-state {
+    background: white;
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .welcome-content h1 {
+        font-size: 2rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        min-width: 800px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-section {
+        padding: 2rem 1rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Success/Error Messages */
+.message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    position: relative;
+    animation: slideDown 0.3s ease-out;
+}
+
+.message.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a67d8;
+}
+</style>
 </head>
-<body class="home-page">
-    <div class="sidebar">
-        <div class="logo-container">
-            <img src="images/logo-large.png" alt="Trade2Algo Logo" class="logo">
-            <span class="version">Trade2Algo(2.0.0.5)</span>
-            <span class="powered-by">(Powered by Trade2Algo Fintech)</span>
-        </div>
-        <button class="sidebar-toggle" id="sidebar-toggle">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <nav class="side-nav">
-            <ul>
-                <!-- Main Navigation -->
-                <li class="nav-section-title">Main</li>
-                <li><a href="home.html" class="active"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                <li><a href="#" id="login-link"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a></li>
-                <li><a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-                
-                <li class="nav-divider"></li>
-                
-                <!-- Trading Section -->
-                <li class="nav-section-title">Trading</li>
-                <li><a href="place-order.html"><i class="fas fa-plus-circle"></i> <span>Place Order</span></a></li>
-                <li><a href="order-book.html"><i class="fas fa-book"></i> <span>Order Book</span></a></li>
-                <li><a href="trade-book.html"><i class="fas fa-exchange-alt"></i> <span>Trade Book</span></a></li>
-                <li><a href="positions-book.html"><i class="fas fa-chart-line"></i> <span>Positions Book</span></a></li>
-                
-                <li class="nav-divider"></li>
-                
-                <!-- Information Section -->
-                <li class="nav-section-title">Information</li>
-                <li><a href="#features"><i class="fas fa-star"></i> <span>Features</span></a></li>
-                <li><a href="#pricing"><i class="fas fa-tags"></i> <span>Pricing</span></a></li>
-                <li><a href="#about"><i class="fas fa-info-circle"></i> <span>About Us</span></a></li>
-                <li><a href="help.html"><i class="fas fa-question-circle"></i> <span>Help</span></a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-    <div class="main-content">
-        <header>
-            <div class="header-content">
-                <div class="header-left">
-                    <h1 class="page-title">Trade2Algo</h1>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trade2Algo</span>
                 </div>
-                <div class="user-controls">
-                    <a href="#" class="btn-user"><i class="fas fa-user-circle"></i></a>
-                    <a href="#" class="btn-settings"><i class="fas fa-cog"></i></a>
-                    <a href="#" class="btn-notifications"><i class="fas fa-bell"></i></a>
-                </div>
+                <p class="tagline">Where Innovation Meets Execution</p>
             </div>
-        </header>
-
-        <div class="hero-section">
-            <div class="hero-content">
-                <div class="hero-logo">
-                    <img src="images/logo-large.png" alt="Trade2Algo Large Logo">
-                </div>
-                <h1>Where Innovation Meets Execution</h1>
-                <p class="hero-tagline">Advanced trading solutions for modern investors</p>
-                <div class="hero-buttons">
-                    <a href="#" id="hero-login-btn" class="btn btn-primary">Get Started</a>
-                    <a href="#demo" class="btn btn-secondary">Watch Demo</a>
-                </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="#" class="nav-link" data-section="place-order">
+                    <i class="fas fa-plus-circle"></i> Place Order
+                </a>
+                <a href="#" class="nav-link" data-section="order-status" onclick="getOrderStatus()">
+                    <i class="fas fa-book"></i> Order Status
+                </a>
+                <a href="#" class="nav-link" data-section="user-profile" onclick="getUserProfile()">
+                    <i class="fas fa-user-circle"></i> User Profile
+                </a>
+                <a href="#" class="nav-link" data-section="trade-book">
+                    <i class="fas fa-exchange-alt"></i> Trade Book
+                </a>
+                <a href="#" class="nav-link" data-section="positions">
+                    <i class="fas fa-briefcase"></i> Positions
+                </a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-secondary">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="btn-secondary">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="btn-primary" id="loginBtn" onclick="login()">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="btn-outline" id="logoutBtn" onclick="logout()" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
             </div>
         </div>
+    </header>
 
-        <main>
-            <section id="features" class="features-section">
-                <div class="section-container">
-                    <h2 class="section-title">Powerful Trading Features</h2>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <h3>Real-time Analytics</h3>
-                            <p>Monitor market movements with advanced charting tools and real-time data feeds.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <h3>Lightning Fast Execution</h3>
-                            <p>Execute trades with minimal latency through our optimized trading infrastructure.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <h3>Algorithmic Trading</h3>
-                            <p>Create and deploy custom trading algorithms with our intuitive strategy builder.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3>Risk Management</h3>
-                            <p>Protect your portfolio with advanced risk management tools and position sizing.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <h3>Mobile Trading</h3>
-                            <p>Trade on-the-go with our responsive mobile platform, available on all devices.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-headset"></i>
-                            </div>
-                            <h3>24/7 Support</h3>
-                            <p>Get assistance anytime with our dedicated customer support team.</p>
-                        </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <div class="welcome-logo">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h1>Welcome to Trade2Algo</h1>
+                    <p>Your professional trading platform for seamless execution</p>
+                    <div class="quick-actions">
+                        <button class="btn-primary" onclick="showSection('place-order')">
+                            <i class="fas fa-plus"></i> Place New Order
+                        </button>
+                        <button class="btn-outline" onclick="showSection('order-book')">
+                            <i class="fas fa-list"></i> View Orders
+                        </button>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="platforms" class="platforms-section">
-                <div class="section-container">
-                    <h2 class="section-title">Multiple Markets, One Platform</h2>
-                    <div class="platforms-content">
-                        <div class="platforms-text">
-                            <p>Trade2Algo provides seamless access to multiple markets and asset classes:</p>
-                            <ul class="platforms-list">
-                                <li><i class="fas fa-check"></i> Equities</li>
-                                <li><i class="fas fa-check"></i> Futures & Options</li>
-                                <li><i class="fas fa-check"></i> Commodities</li>
-                                <li><i class="fas fa-check"></i> Currency Derivatives</li>
-                            </ul>
-                            <p>Our platform connects to all major Indian exchanges including NSE, BSE, MCX, and more.</p>
-                            <a href="#" class="btn btn-outline">View All Markets</a>
-                        </div>
-                        <div class="platforms-image">
-                            <img src="images/platform-screenshot.png" alt="Trade2Algo Platform" class="platform-img">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="pricing" class="pricing-section">
-                <div class="section-container">
-                    <h2 class="section-title">Simple, Transparent Pricing</h2>
-                    <div class="pricing-cards">
-                        <div class="pricing-card">
-                            <div class="pricing-header">
-                                <h3>Basic</h3>
-                                <div class="pricing-price">
-                                    <span class="currency">₹</span>
-                                    <span class="amount">499</span>
-                                    <span class="period">/month</span>
-                                </div>
-                            </div>
-                            <div class="pricing-features">
-                                <ul>
-                                    <li><i class="fas fa-check"></i> Equity Trading</li>
-                                    <li><i class="fas fa-check"></i> Basic Charting Tools</li>
-                                    <li><i class="fas fa-check"></i> Market Depth</li>
-                                    <li><i class="fas fa-check"></i> 5 Watchlists</li>
-                                    <li><i class="fas fa-times"></i> Algorithmic Trading</li>
-                                    <li><i class="fas fa-times"></i> Advanced Analytics</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-action">
-                                <a href="#" class="btn btn-outline pricing-login-btn">Get Started</a>
-                            </div>
-                        </div>
-                        <div class="pricing-card featured">
-                            <div class="pricing-badge">Most Popular</div>
-                            <div class="pricing-header">
-                                <h3>Pro</h3>
-                                <div class="pricing-price">
-                                    <span class="currency">₹</span>
-                                    <span class="amount">999</span>
-                                    <span class="period">/month</span>
-                                </div>
-                            </div>
-                            <div class="pricing-features">
-                                <ul>
-                                    <li><i class="fas fa-check"></i> Everything in Basic</li>
-                                    <li><i class="fas fa-check"></i> F&O Trading</li>
-                                    <li><i class="fas fa-check"></i> Advanced Charting</li>
-                                    <li><i class="fas fa-check"></i> Unlimited Watchlists</li>
-                                    <li><i class="fas fa-check"></i> Basic Algorithmic Trading</li>
-                                    <li><i class="fas fa-times"></i> Advanced Analytics</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-action">
-                                <a href="#" class="btn btn-primary pricing-login-btn">Get Started</a>
-                            </div>
-                        </div>
-                        <div class="pricing-card">
-                            <div class="pricing-header">
-                                <h3>Enterprise</h3>
-                                <div class="pricing-price">
-                                    <span class="currency">₹</span>
-                                    <span class="amount">1999</span>
-                                    <span class="period">/month</span>
-                                </div>
-                            </div>
-                            <div class="pricing-features">
-                                <ul>
-                                    <li><i class="fas fa-check"></i> Everything in Pro</li>
-                                    <li><i class="fas fa-check"></i> All Market Segments</li>
-                                    <li><i class="fas fa-check"></i> Advanced Algorithmic Trading</li>
-                                    <li><i class="fas fa-check"></i> API Access</li>
-                                    <li><i class="fas fa-check"></i> Advanced Analytics</li>
-                                    <li><i class="fas fa-check"></i> Dedicated Support</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-action">
-                                <a href="#" class="btn btn-outline pricing-login-btn">Get Started</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="testimonials" class="testimonials-section">
-                <div class="section-container">
-                    <h2 class="section-title">What Our Clients Say</h2>
-                    <div class="testimonials-slider">
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                <p>"Trade2Algo has completely transformed my trading experience. The platform is intuitive, fast, and packed with powerful features that have helped me improve my trading results."</p>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <img src="images/avatar-1.png" alt="Testimonial Avatar">
-                                </div>
-                                <div class="author-info">
-                                    <h4>Rajesh Sharma</h4>
-                                    <p>Professional Trader, Mumbai</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="about" class="about-section">
-                <div class="section-container">
-                    <h2 class="section-title">About Trade2Algo</h2>
-                    <div class="about-content">
-                        <div class="about-text">
-                            <p>Trade2Algo is a leading fintech company specializing in advanced trading solutions for retail and institutional investors. Founded in 2018, we've been at the forefront of innovation in the trading technology space.</p>
-                            <p>Our mission is to democratize access to sophisticated trading tools and empower traders of all levels to achieve their financial goals.</p>
-                            <div class="about-stats">
-                                <div class="stat-item">
-                                    <div class="stat-number">50,000+</div>
-                                    <div class="stat-label">Active Users</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">₹500Cr+</div>
-                                    <div class="stat-label">Daily Volume</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">99.9%</div>
-                                    <div class="stat-label">Uptime</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="about-image">
-                            <img src="images/about-image.png" alt="Trade2Algo Office">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="cta" class="cta-section">
-                <div class="section-container">
-                    <div class="cta-content">
-                        <h2>Ready to Transform Your Trading?</h2>
-                        <p>Join thousands of traders who have already elevated their trading experience with Trade2Algo.</p>
-                        <div class="cta-buttons">
-                            <a href="#" class="btn btn-primary pricing-login-btn">Get Started Now</a>
-                            <a href="#contact" class="btn btn-secondary">Contact Sales</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Login Modal -->
-        <div class="modal" id="login-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img src="images/logo-small.png" alt="Trade2Algo" class="modal-logo">
-                    <h2>Login</h2>
-                    <span class="close">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <form id="login-form">
+        <!-- Place Order Section -->
+        <section id="place-order" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-plus-circle"></i> Place Order</h2>
+                <p>Execute your trading strategy with precision</p>
+            </div>
+            
+            <div class="order-form-container">
+                <form class="order-form" id="orderForm" onsubmit="placeOrder(event)">
+                    <div class="form-grid">
                         <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                            <label for="exchange">Exchange</label>
+                            <select id="exchange" name="exchange" required>
+                                <option value="nse_cm">NSE CM</option>
+                                <option value="nse_fo">NSE FO</option>
+                                <option value="bse">BSE</option>
+                            </select>
                         </div>
+
                         <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <label for="instrument">Instrument Type</label>
+                            <select id="instrument" name="instrument" required>
+                                <option value="EQ">EQ</option>
+                                <option value="OPTIDX">OPTIDX</option>
+                                <option value="FUTSTK">FUTSTK</option>
+                            </select>
                         </div>
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="remember" name="remember">
-                            <label for="remember" class="checkbox-label">Remember me</label>
+
+                        <div class="form-group">
+                            <label for="symbol">Symbol</label>
+                            <select id="symbol" name="tradingsecurity" required>
+                                <option value="RELIANCE">RELIANCE</option>
+                                <option value="NIFTY">NIFTY</option>
+                                <option value="IDEA">IDEA</option>
+                                <option value="TCS">TCS</option>
+                            </select>
                         </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn-login">Login</button>
+
+                        <div class="form-group">
+                            <label for="optionType">Option Type</label>
+                            <select id="optionType" name="optionType">
+                                <option value="">Select Option Type</option>
+                                <option value="CE">CE</option>
+                                <option value="PE">PE</option>
+                            </select>
                         </div>
-                    </form>
-                    <div class="login-links">
-                        <a href="#" class="forgot-password">Forgot Password?</a>
-                        <span class="separator">|</span>
-                        <a href="#" class="contact-support">Contact Support</a>
+
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <select id="expiryDate" name="expiryDate">
+                                <option value="">Select Expiry</option>
+                                <option value="12JUN2025">12JUN2025</option>
+                                <option value="19JUN2025">19JUN2025</option>
+                                <option value="26JUN2025">26JUN2025</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="strikePrice">Strike Price</label>
+                            <select id="strikePrice" name="strikePrice">
+                                <option value="">Select Strike</option>
+                                <option value="26800">26800</option>
+                                <option value="27000">27000</option>
+                                <option value="27200">27200</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transaction">Transaction</label>
+                            <select id="transaction" name="transaction_type" required>
+                                <option value="BUY">BUY</option>
+                                <option value="SELL">SELL</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product">Product</label>
+                            <select id="product" name="product" required>
+                                <option value="NRML">NRML</option>
+                                <option value="MIS">MIS</option>
+                                <option value="CNC">CNC</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="orderType">Order Type</label>
+                            <select id="orderType" name="order_type" required>
+                                <option value="L">Limit</option>
+                                <option value="MKT">Market</option>
+                                <option value="SL">Stop Loss</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" name="quantity" placeholder="e.g., 100" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" step="0.01" placeholder="Leave empty for MARKET orders">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="triggerPrice">Trigger Price</label>
+                            <input type="number" id="triggerPrice" name="triggerPrice" step="0.01" placeholder="Only for SL orders">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="validity">Validity</label>
+                            <select id="validity" name="validity" required>
+                                <option value="DAY">DAY</option>
+                                <option value="IOC">IOC</option>
+                                <option value="GTD">GTD</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="resetForm()">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                        <button type="submit" class="btn-primary" id="placeOrderBtn">
+                            <i class="fas fa-paper-plane"></i> Place Order
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Order Book Section -->
+        <section id="order-book" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-book"></i> Order Book</h2>
+                <p>Track all your orders and their status</p>
+                <button class="btn-primary" onclick="refreshOrderBook()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table" id="orderBookTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Trigger</th>
+                            <th>Order Time</th>
+                            <th>Product</th>
+                            <th>Segment</th>
+                            <th>Exchange</th>
+                            <th>Reject Reason</th>
+                            <th>Validity</th>
+                            <th>Avg Price</th>
+                            <th>Order Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>250606000219478</td>
+                            <td>NIFTY25612268000CE</td>
+                            <td><span class="badge sell">SELL</span></td>
+                            <td><span class="status complete">Complete</span></td>
+                            <td>75</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>06-Jun-2025 10:26:00</td>
+                            <td>NRML</td>
+                            <td>nse_fo</td>
+                            <td>NSE</td>
+                            <td>--</td>
+                            <td>DAY</td>
+                            <td>6.85</td>
+                            <td>ADMINCPPAPI_Web</td>
+                        </tr>
+                        <tr>
+                            <td>250606000208686</td>
+                            <td>NIFTY25612268000CE</td>
+                            <td><span class="badge buy">BUY</span></td>
+                            <td><span class="status complete">Complete</span></td>
+                            <td>75</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>06-Jun-2025 10:22:12</td>
+                            <td>NRML</td>
+                            <td>nse_fo</td>
+                            <td>NSE</td>
+                            <td>--</td>
+                            <td>DAY</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>250606000188885</td>
+                            <td>IDEA-EQ</td>
+                            <td><span class="badge sell">SELL</span></td>
+                            <td><span class="status complete">Complete</span></td>
+                            <td>1</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>06-Jun-2025 10:13:50</td>
+                            <td>NRML</td>
+                            <td>nse_cm</td>
+                            <td>NSE</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>250606000183382</td>
+                            <td>IDEA-EQ</td>
+                            <td><span class="badge buy">BUY</span></td>
+                            <td><span class="status complete">Complete</span></td>
+                            <td>1</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>06-Jun-2025 10:12:06</td>
+                            <td>NRML</td>
+                            <td>nse_cm</td>
+                            <td>NSE</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>250606000178333</td>
+                            <td>TCS-EQ</td>
+                            <td><span class="badge buy">BUY</span></td>
+                            <td><span class="status rejected">Rejected</span></td>
+                            <td>11111</td>
+                            <td>0.00</td>
+                            <td>0.00</td>
+                            <td>06-Jun-2025 10:10:48</td>
+                            <td>NRML</td>
+                            <td>nse_cm</td>
+                            <td>NSE</td>
+                            <td>RMS:Rule: Order Value limit including square off order,Current:...</td>
+                            <td>DAY</td>
+                            <td>0.00</td>
+                            <td>ADMINCPPAPI_Web</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Trade Book Section -->
+        <section id="trade-book" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-exchange-alt"></i> Trade Book</h2>
+                <p>View all executed trades</p>
+                <button class="btn-primary" onclick="refreshTradeBook()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table" id="tradeBookTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Value</th>
+                            <th>Time</th>
+                            <th>Order No</th>
+                            <th>Product</th>
+                            <th>Segment</th>
+                            <th>Instrument</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="trade-sell">
+                            <td>1</td>
+                            <td>NIFTY</td>
+                            <td><span class="badge sell">SELL</span></td>
+                            <td>75</td>
+                            <td>1.25</td>
+                            <td>93.75</td>
+                            <td>06-Jun-2025 10:26:00</td>
+                            <td>250606000219478</td>
+                            <td>NRML</td>
+                            <td>FO</td>
+                            <td>OPTIDX</td>
+                        </tr>
+                        <tr class="trade-buy">
+                            <td>2</td>
+                            <td>NIFTY</td>
+                            <td><span class="badge buy">BUY</span></td>
+                            <td>75</td>
+                            <td>1.30</td>
+                            <td>97.50</td>
+                            <td>06-Jun-2025 10:22:12</td>
+                            <td>250606000208686</td>
+                            <td>NRML</td>
+                            <td>FO</td>
+                            <td>OPTIDX</td>
+                        </tr>
+                        <tr class="trade-sell">
+                            <td>3</td>
+                            <td>IDEA</td>
+                            <td><span class="badge sell">SELL</span></td>
+                            <td>1</td>
+                            <td>6.83</td>
+                            <td>6.83</td>
+                            <td>06-Jun-2025 10:13:50</td>
+                            <td>250606000188885</td>
+                            <td>NRML</td>
+                            <td>CM</td>
+                            <td>EQ</td>
+                        </tr>
+                        <tr class="trade-buy">
+                            <td>4</td>
+                            <td>IDEA</td>
+                            <td><span class="badge buy">BUY</span></td>
+                            <td>1</td>
+                            <td>6.85</td>
+                            <td>6.85</td>
+                            <td>06-Jun-2025 10:12:06</td>
+                            <td>250606000183382</td>
+                            <td>NRML</td>
+                            <td>CM</td>
+                            <td>EQ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Positions Section -->
+        <section id="positions" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-briefcase"></i> Positions</h2>
+                <p>Monitor your current positions</p>
+            </div>
+            <div class="empty-state">
+                <i class="fas fa-briefcase"></i>
+                <h3>No Positions</h3>
+                <p>You don't have any open positions at the moment.</p>
+            </div>
+        </section>
+        
+        <!-- Order Status Section -->
+        <section id="order-status" class="content-section orders-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list-alt"></i> Order Status</h2>
+                <p>View and manage your orders</p>
+                <button class="btn-primary refresh-btn" onclick="getOrderStatus()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="loading-container" id="orderStatusLoading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Loading orders...</p>
+            </div>
+            <div class="info-message" id="orderStatusInfo" style="display: none;">
+                <i class="fas fa-info-circle"></i>
+                <p>Please login to view your orders.</p>
+            </div>
+            <div class="error-message" id="orderStatusError" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="orderStatusErrorText">Error loading orders.</p>
+            </div>
+            <div class="orders-table-container" id="ordersTableContainer" style="display: none;">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Order Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Orders will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="empty-state" id="noOrdersMessage" style="display: none;">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>No Orders</h3>
+                <p>You don't have any orders at the moment.</p>
+                <button class="btn-primary" onclick="showSection('place-order')">
+                    <i class="fas fa-plus"></i> Place New Order
+                </button>
+            </div>
+        </section>
+        
+        <!-- User Profile Section -->
+        <section id="user-profile" class="content-section profile-section">
+            <div class="section-header">
+                <h2><i class="fas fa-user"></i> User Profile</h2>
+                <p>View your account information</p>
+                <button class="btn-primary refresh-btn" onclick="getUserProfile()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="loading-container" id="profileLoading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Loading profile...</p>
+            </div>
+            <div class="info-message" id="profileInfo" style="display: none;">
+                <i class="fas fa-info-circle"></i>
+                <p>Please login to view your profile.</p>
+            </div>
+            <div class="error-message" id="profileError" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="profileErrorText">Error loading profile.</p>
+            </div>
+            <div class="profile-card" id="profileCard" style="display: none;">
+                <div class="profile-header">
+                    <div class="profile-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3 id="profileName">User Name</h3>
+                    <p id="profileEmail">user@example.com</p>
+                </div>
+                <div class="profile-details">
+                    <div class="detail-row">
+                        <div class="detail-label">User ID</div>
+                        <div class="detail-value" id="profileUserId">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Account Type</div>
+                        <div class="detail-value" id="profileAccountType">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Mobile</div>
+                        <div class="detail-value" id="profileMobile">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">PAN</div>
+                        <div class="detail-value" id="profilePan">-</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value" id="profileStatus">-</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <footer class="home-footer">
-            <div class="footer-container">
-                <div class="footer-columns">
-                    <div class="footer-column">
-                        <h3>Trade2Algo</h3>
-                        <p>Where Innovation Meets Execution</p>
-                        <div class="footer-social">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Products</h4>
-                        <ul>
-                            <li><a href="#">Web Platform</a></li>
-                            <li><a href="#">Mobile App</a></li>
-                            <li><a href="#">API Access</a></li>
-                            <li><a href="#">Algo Trading</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="#">Documentation</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Webinars</a></li>
-                            <li><a href="#">Market Insights</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Press</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Risk Disclosure</a></li>
-                            <li><a href="#">Security</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2025 Trade2Algo. All rights reserved.</p>
-                    <p>SEBI Registration No: INZ000000000</p>
-                </div>
-            </div>
-        </footer>
-    </div>
+    <script>
+// Global state
+let currentSection = 'dashboard';
+let orders = [];
+let trades = [];
 
-    <script src="js/script.js"></script>
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeNavigation();
+    initializeOrderForm();
+    loadSampleData();
+    showSection('dashboard');
+});
+
+// Navigation functionality
+function initializeNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            showSection(section);
+            
+            // Update active nav link
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+// Show specific section
+function showSection(sectionName) {
+    // Hide all sections
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show target section
+    const targetSection = document.getElementById(sectionName);
+    if (targetSection) {
+        targetSection.classList.add('active');
+        currentSection = sectionName;
+    }
+    
+    // Update navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-section') === sectionName) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Order form functionality
+function initializeOrderForm() {
+    const orderForm = document.getElementById('orderForm');
+    const exchangeSelect = document.getElementById('exchange');
+    const instrumentSelect = document.getElementById('instrument');
+    const orderTypeSelect = document.getElementById('orderType');
+    const priceInput = document.getElementById('price');
+    const triggerPriceInput = document.getElementById('triggerPrice');
+    
+    // Handle exchange change
+    exchangeSelect.addEventListener('change', function() {
+        updateInstrumentOptions();
+        updateSymbolOptions();
+    });
+    
+    // Handle instrument change
+    instrumentSelect.addEventListener('change', function() {
+        updateSymbolOptions();
+        toggleOptionFields();
+    });
+    
+    // Handle order type change
+    orderTypeSelect.addEventListener('change', function() {
+        togglePriceFields();
+    });
+    
+    // Handle form submission
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitOrder();
+    });
+    
+    // Initialize form state
+    updateInstrumentOptions();
+    toggleOptionFields();
+    togglePriceFields();
+}
+
+function updateInstrumentOptions() {
+    const exchange = document.getElementById('exchange').value;
+    const instrumentSelect = document.getElementById('instrument');
+    
+    // Clear existing options
+    instrumentSelect.innerHTML = '';
+    
+    let instruments = [];
+    if (exchange === 'nse_cm' || exchange === 'bse') {
+        instruments = [
+            { value: 'EQ', text: 'EQ' }
+        ];
+    } else if (exchange === 'nse_fo') {
+        instruments = [
+            { value: 'OPTIDX', text: 'OPTIDX' },
+            { value: 'FUTSTK', text: 'FUTSTK' },
+            { value: 'FUTIDX', text: 'FUTIDX' }
+        ];
+    }
+    
+    instruments.forEach(instrument => {
+        const option = document.createElement('option');
+        option.value = instrument.value;
+        option.textContent = instrument.text;
+        instrumentSelect.appendChild(option);
+    });
+}
+
+function updateSymbolOptions() {
+    const exchange = document.getElementById('exchange').value;
+    const instrument = document.getElementById('instrument').value;
+    const symbolSelect = document.getElementById('symbol');
+    
+    // Clear existing options
+    symbolSelect.innerHTML = '';
+    
+    let symbols = [];
+    if (exchange === 'nse_cm' || exchange === 'bse') {
+        symbols = [
+            { value: 'RELIANCE', text: 'RELIANCE' },
+            { value: 'TCS', text: 'TCS' },
+            { value: 'IDEA', text: 'IDEA' },
+            { value: 'INFY', text: 'INFY' }
+        ];
+    } else if (exchange === 'nse_fo') {
+        if (instrument === 'OPTIDX' || instrument === 'FUTIDX') {
+            symbols = [
+                { value: 'NIFTY', text: 'NIFTY' },
+                { value: 'BANKNIFTY', text: 'BANKNIFTY' }
+            ];
+        } else {
+            symbols = [
+                { value: 'RELIANCE', text: 'RELIANCE' },
+                { value: 'TCS', text: 'TCS' }
+            ];
+        }
+    }
+    
+    symbols.forEach(symbol => {
+        const option = document.createElement('option');
+        option.value = symbol.value;
+        option.textContent = symbol.text;
+        symbolSelect.appendChild(option);
+    });
+}
+
+function toggleOptionFields() {
+    const instrument = document.getElementById('instrument').value;
+    const optionTypeGroup = document.querySelector('label[for="optionType"]').parentElement;
+    const expiryDateGroup = document.querySelector('label[for="expiryDate"]').parentElement;
+    const strikePriceGroup = document.querySelector('label[for="strikePrice"]').parentElement;
+    
+    if (instrument === 'OPTIDX') {
+        optionTypeGroup.style.display = 'flex';
+        expiryDateGroup.style.display = 'flex';
+        strikePriceGroup.style.display = 'flex';
+    } else {
+        optionTypeGroup.style.display = 'none';
+        expiryDateGroup.style.display = 'none';
+        strikePriceGroup.style.display = 'none';
+    }
+}
+
+function togglePriceFields() {
+    const orderType = document.getElementById('orderType').value;
+    const priceInput = document.getElementById('price');
+    const triggerPriceInput = document.getElementById('triggerPrice');
+    
+    if (orderType === 'MKT') {
+        priceInput.disabled = true;
+        priceInput.placeholder = 'Not required for Market orders';
+        priceInput.value = '';
+    } else {
+        priceInput.disabled = false;
+        priceInput.placeholder = 'Enter price';
+    }
+    
+    if (orderType === 'SL') {
+        triggerPriceInput.disabled = false;
+        triggerPriceInput.placeholder = 'Enter trigger price';
+    } else {
+        triggerPriceInput.disabled = true;
+        triggerPriceInput.placeholder = 'Only for SL orders';
+        triggerPriceInput.value = '';
+    }
+}
+
+function submitOrder() {
+    const formData = new FormData(document.getElementById('orderForm'));
+    const orderData = Object.fromEntries(formData.entries());
+    
+    // Validate required fields
+    if (!validateOrderForm(orderData)) {
+        return;
+    }
+    
+    // Show loading state
+    const submitButton = document.querySelector('#orderForm button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    submitButton.innerHTML = '<div class="loading"></div> Placing Order...';
+    submitButton.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        // Generate order ID
+        const orderId = generateOrderId();
+        
+        // Create order object
+        const order = {
+            orderId: orderId,
+            symbol: orderData.symbol,
+            type: orderData.transaction,
+            status: Math.random() > 0.1 ? 'complete' : 'rejected',
+            quantity: orderData.quantity,
+            price: orderData.price || '0.00',
+            trigger: orderData.triggerPrice || '0.00',
+            orderTime: new Date().toLocaleString(),
+            product: orderData.product,
+            segment: orderData.exchange.includes('fo') ? 'nse_fo' : 'nse_cm',
+            exchange: 'NSE',
+            rejectReason: Math.random() > 0.1 ? '--' : 'Insufficient funds',
+            validity: orderData.validity,
+            avgPrice: Math.random() > 0.1 ? (Math.random() * 100).toFixed(2) : '--',
+            orderSource: 'Web'
+        };
+        
+        // Add to orders array
+        orders.unshift(order);
+        
+        // If order is complete, add to trades
+        if (order.status === 'complete') {
+            const trade = {
+                id: trades.length + 1,
+                symbol: orderData.symbol,
+                type: orderData.transaction,
+                quantity: orderData.quantity,
+                price: (Math.random() * 100).toFixed(2),
+                value: (orderData.quantity * Math.random() * 100).toFixed(2),
+                time: new Date().toLocaleString(),
+                orderNo: orderId,
+                product: orderData.product,
+                segment: orderData.exchange.includes('fo') ? 'FO' : 'CM',
+                instrument: orderData.instrument
+            };
+            trades.unshift(trade);
+        }
+        
+        // Update tables
+        updateOrderBookTable();
+        updateTradeBookTable();
+        
+        // Show success message
+        showMessage(
+            order.status === 'complete' ? 'Order placed successfully!' : 'Order rejected!',
+            order.status === 'complete' ? 'success' : 'error'
+        );
+        
+        // Reset form
+        resetForm();
+        
+        // Restore button
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+        
+        // Switch to order book
+        showSection('order-book');
+        
+    }, 2000);
+}
+
+function validateOrderForm(orderData) {
+    const requiredFields = ['exchange', 'instrument', 'symbol', 'transaction', 'product', 'orderType', 'quantity', 'validity'];
+    
+    for (let field of requiredFields) {
+        if (!orderData[field]) {
+            showMessage(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`, 'error');
+            return false;
+        }
+    }
+    
+    if (orderData.orderType === 'L' && !orderData.price) {
+        showMessage('Price is required for Limit orders.', 'error');
+        return false;
+    }
+    
+    if (orderData.orderType === 'SL' && !orderData.triggerPrice) {
+        showMessage('Trigger price is required for Stop Loss orders.', 'error');
+        return false;
+    }
+    
+    return true;
+}
+
+function resetForm() {
+    document.getElementById('orderForm').reset();
+    toggleOptionFields();
+    togglePriceFields();
+}
+
+function generateOrderId() {
+    const date = new Date();
+    const dateStr = date.getFullYear().toString().substr(-2) + 
+                   String(date.getMonth() + 1).padStart(2, '0') + 
+                   String(date.getDate()).padStart(2, '0');
+    const randomNum = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    return dateStr + '000' + randomNum;
+}
+
+function showMessage(text, type) {
+    // Remove existing messages
+    const existingMessages = document.querySelectorAll('.message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    // Create new message
+    const message = document.createElement('div');
+    message.className = `message ${type}`;
+    message.textContent = text;
+    
+    // Insert at the top of the current section
+    const currentSectionElement = document.querySelector('.content-section.active');
+    currentSectionElement.insertBefore(message, currentSectionElement.firstChild);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        message.remove();
+    }, 5000);
+}
+
+// Table update functions
+function updateOrderBookTable() {
+    const tbody = document.querySelector('#orderBookTable tbody');
+    tbody.innerHTML = '';
+    
+    orders.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${order.orderId}</td>
+            <td>${order.symbol}</td>
+            <td><span class="badge ${order.type.toLowerCase()}">${order.type}</span></td>
+            <td><span class="status ${order.status}">${order.status}</span></td>
+            <td>${order.quantity}</td>
+            <td>${order.price}</td>
+            <td>${order.trigger}</td>
+            <td>${order.orderTime}</td>
+            <td>${order.product}</td>
+            <td>${order.segment}</td>
+            <td>${order.exchange}</td>
+            <td>${order.rejectReason}</td>
+            <td>${order.validity}</td>
+            <td>${order.avgPrice}</td>
+            <td>${order.orderSource}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function updateTradeBookTable() {
+    const tbody = document.querySelector('#tradeBookTable tbody');
+    tbody.innerHTML = '';
+    
+    trades.forEach(trade => {
+        const row = document.createElement('tr');
+        row.className = `trade-${trade.type.toLowerCase()}`;
+        row.innerHTML = `
+            <td>${trade.id}</td>
+            <td>${trade.symbol}</td>
+            <td><span class="badge ${trade.type.toLowerCase()}">${trade.type}</span></td>
+            <td>${trade.quantity}</td>
+            <td>${trade.price}</td>
+            <td>${trade.value}</td>
+            <td>${trade.time}</td>
+            <td>${trade.orderNo}</td>
+            <td>${trade.product}</td>
+            <td>${trade.segment}</td>
+            <td>${trade.instrument}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Refresh functions
+function refreshOrderBook() {
+    const button = document.querySelector('.section-header button');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<div class="loading"></div> Refreshing...';
+    button.disabled = true;
+    
+    setTimeout(() => {
+        updateOrderBookTable();
+        button.innerHTML = originalText;
+        button.disabled = false;
+        showMessage('Order book refreshed successfully!', 'success');
+    }, 1000);
+}
+
+function refreshTradeBook() {
+    const button = document.querySelector('.section-header button');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<div class="loading"></div> Refreshing...';
+    button.disabled = true;
+    
+    setTimeout(() => {
+        updateTradeBookTable();
+        button.innerHTML = originalText;
+        button.disabled = false;
+        showMessage('Trade book refreshed successfully!', 'success');
+    }, 1000);
+}
+
+// Load sample data
+function loadSampleData() {
+    // Sample orders
+    orders = [
+        {
+            orderId: '250606000219478',
+            symbol: 'NIFTY25612268000CE',
+            type: 'SELL',
+            status: 'complete',
+            quantity: '75',
+            price: '0.00',
+            trigger: '0.00',
+            orderTime: '06-Jun-2025 10:26:00',
+            product: 'NRML',
+            segment: 'nse_fo',
+            exchange: 'NSE',
+            rejectReason: '--',
+            validity: 'DAY',
+            avgPrice: '6.85',
+            orderSource: 'Web'
+        },
+        {
+            orderId: '250606000208686',
+            symbol: 'NIFTY25612268000CE',
+            type: 'BUY',
+            status: 'complete',
+            quantity: '75',
+            price: '0.00',
+            trigger: '0.00',
+            orderTime: '06-Jun-2025 10:22:12',
+            product: 'NRML',
+            segment: 'nse_fo',
+            exchange: 'NSE',
+            rejectReason: '--',
+            validity: 'DAY',
+            avgPrice: '--',
+            orderSource: 'Web'
+        },
+        {
+            orderId: '250606000188885',
+            symbol: 'IDEA-EQ',
+            type: 'SELL',
+            status: 'complete',
+            quantity: '1',
+            price: '0.00',
+            trigger: '0.00',
+            orderTime: '06-Jun-2025 10:13:50',
+            product: 'NRML',
+            segment: 'nse_cm',
+            exchange: 'NSE',
+            rejectReason: '--',
+            validity: '--',
+            avgPrice: '--',
+            orderSource: 'Web'
+        },
+        {
+            orderId: '250606000183382',
+            symbol: 'IDEA-EQ',
+            type: 'BUY',
+            status: 'complete',
+            quantity: '1',
+            price: '0.00',
+            trigger: '0.00',
+            orderTime: '06-Jun-2025 10:12:06',
+            product: 'NRML',
+            segment: 'nse_cm',
+            exchange: 'NSE',
+            rejectReason: '--',
+            validity: '--',
+            avgPrice: '--',
+            orderSource: 'Web'
+        },
+        {
+            orderId: '250606000178333',
+            symbol: 'TCS-EQ',
+            type: 'BUY',
+            status: 'rejected',
+            quantity: '11111',
+            price: '0.00',
+            trigger: '0.00',
+            orderTime: '06-Jun-2025 10:10:48',
+            product: 'NRML',
+            segment: 'nse_cm',
+            exchange: 'NSE',
+            rejectReason: 'RMS:Rule: Order Value limit including square off order,Current:...',
+            validity: 'DAY',
+            avgPrice: '0.00',
+            orderSource: 'Web'
+        }
+    ];
+    
+    // Sample trades
+    trades = [
+        {
+            id: 1,
+            symbol: 'NIFTY',
+            type: 'SELL',
+            quantity: '75',
+            price: '1.25',
+            value: '93.75',
+            time: '06-Jun-2025 10:26:00',
+            orderNo: '250606000219478',
+            product: 'NRML',
+            segment: 'FO',
+            instrument: 'OPTIDX'
+        },
+        {
+            id: 2,
+            symbol: 'NIFTY',
+            type: 'BUY',
+            quantity: '75',
+            price: '1.30',
+            value: '97.50',
+            time: '06-Jun-2025 10:22:12',
+            orderNo: '250606000208686',
+            product: 'NRML',
+            segment: 'FO',
+            instrument: 'OPTIDX'
+        },
+        {
+            id: 3,
+            symbol: 'IDEA',
+            type: 'SELL',
+            quantity: '1',
+            price: '6.83',
+            value: '6.83',
+            time: '06-Jun-2025 10:13:50',
+            orderNo: '250606000188885',
+            product: 'NRML',
+            segment: 'CM',
+            instrument: 'EQ'
+        },
+        {
+            id: 4,
+            symbol: 'IDEA',
+            type: 'BUY',
+            quantity: '1',
+            price: '6.85',
+            value: '6.85',
+            time: '06-Jun-2025 10:12:06',
+            orderNo: '250606000183382',
+            product: 'NRML',
+            segment: 'CM',
+            instrument: 'EQ'
+        }
+    ];
+    
+    // Update tables
+    updateOrderBookTable();
+    updateTradeBookTable();
+}
+
+// Utility functions
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR'
+    }).format(amount);
+}
+
+function formatNumber(number) {
+    return new Intl.NumberFormat('en-IN').format(number);
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+            case '1':
+                e.preventDefault();
+                showSection('dashboard');
+                break;
+            case '2':
+                e.preventDefault();
+                showSection('place-order');
+                break;
+            case '3':
+                e.preventDefault();
+                showSection('order-book');
+                break;
+            case '4':
+                e.preventDefault();
+                showSection('trade-book');
+                break;
+            case '5':
+                e.preventDefault();
+                showSection('positions');
+                break;
+        }
+    }
+});</script>
 </body>
-</html> 
+</html>
