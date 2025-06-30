@@ -1,0 +1,43 @@
+{
+  "status": "successful",
+  "data": {
+    "user_id": "DAPI1",
+    "user_type": "3",
+    "email": "info@multitradesoftech.com",
+    "user_name": "MTS_User",
+    "user_shortname": "User",
+    "broker": "",
+    "exchanges": [
+      "BSECM",
+      "BSECOM",
+      "BSEFO",
+      "BSEFX",
+      "BSEINX",
+      "CQG",
+      "DGCX",
+      "IB",
+      "MAXXTRADER",
+      "MCX",
+      "MCX1",
+      "NCDEX",
+      "NSECD",
+      "NSECM",
+      "NSECOM",
+      "NSEFO",
+      "NSEIFSC",
+      "NSESLBM",
+      "XT"
+    ],
+    "products": [
+      "CNC",
+      "NRML"
+    ],
+    "order-types": [
+      "MARKET",
+      "LIMIT",
+      "SL",
+      "SL-M"
+    ],
+    "avatar_url": ""
+  }
+}
