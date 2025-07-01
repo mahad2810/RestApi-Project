@@ -1,11 +1,11 @@
 {
   "status": "successful",
   "data": {
-    "user_id": "DAPI1",
+    "user_id": "FAISAL1",
     "user_type": "3",
-    "email": "info@multitradesoftech.com",
-    "user_name": "MTS_User",
-    "user_shortname": "User",
+    "email": "ghjgjk@gmail.com",
+    "user_name": "",
+    "user_shortname": "",
     "broker": "",
     "exchanges": [
       "BSECM",
@@ -20,13 +20,13 @@
       "MCX",
       "MCX1",
       "NCDEX",
+      "NEWGEN",
       "NSECD",
       "NSECM",
       "NSECOM",
       "NSEFO",
       "NSEIFSC",
-      "NSESLBM",
-      "XT"
+      "NSESLBM"
     ],
     "products": [
       "CNC",

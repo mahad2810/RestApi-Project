@@ -3,684 +3,971 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade2Algo - Professional Trading Platform</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Trade2Algo - Where Innovation Meets Execution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset and Base Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+  line-height: 1.6;
 }
 
-/* Navigation */
+/* Navigation Styles */
 .navbar {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
 }
 
 .nav-brand {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #667eea;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1d29;
 }
 
 .logo i {
-    font-size: 2rem;
+  color: #4a90e2;
+  font-size: 28px;
 }
 
 .tagline {
-    font-size: 0.8rem;
-    color: #666;
-    margin-top: 0.2rem;
+  font-size: 12px;
+  color: #6c757d;
+  font-weight: 400;
+  margin-left: 40px;
 }
 
 .nav-menu {
-    display: flex;
-    gap: 2rem;
+  display: flex;
+  gap: 8px;
 }
 
 .nav-link {
-    text-decoration: none;
-    color: #666;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #6c757d;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 14px;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
 .nav-link.active {
-    color: #667eea;
-    background: rgba(102, 126, 234, 0.1);
+  background-color: #4a90e2;
+  color: white;
 }
 
 .nav-actions {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-/* User Profile Styles */
-.profile-section {
-    margin-top: 2rem;
+.nav-btn {
+  background: none;
+  border: 1px solid #e9ecef;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6c757d;
+  transition: all 0.2s ease;
 }
 
-.profile-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    max-width: 800px;
-    margin: 0 auto;
+.nav-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
 }
 
-.profile-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 2rem;
-    text-align: center;
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.profile-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+.user-profile:hover {
+  background-color: #f8f9fa;
 }
 
-.profile-header h3 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.profile-details {
-    padding: 2rem;
-}
-
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
-}
-
-.detail-row:last-child {
-    border-bottom: none;
-}
-
-.detail-label {
-    font-weight: 600;
-    color: #666;
-}
-
-.detail-value {
-    color: #333;
-}
-
-/* Order Status Styles */
-.orders-section {
-    margin-top: 2rem;
-}
-
-.orders-table-container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin-bottom: 2rem;
-}
-
-.orders-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.orders-table th,
-.orders-table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.orders-table th {
-    background: #f8f9fa;
-    font-weight: 600;
-    color: #666;
-}
-
-.orders-table tr:last-child td {
-    border-bottom: none;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.status-badge.complete {
-    background: #d4edda;
-    color: #155724;
-}
-
-.status-badge.pending {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.status-badge.rejected {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.loading-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-}
-
-.loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #667eea;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.info-message,
-.error-message {
-    display: flex;
-    align-items: center;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-}
-
-.info-message {
-    background: #cce5ff;
-    color: #004085;
-    border-left: 5px solid #004085;
-}
-
-.error-message {
-    background: #f8d7da;
-    color: #721c24;
-    border-left: 5px solid #721c24;
-}
-
-.info-message i,
-.error-message i {
-    font-size: 1.5rem;
-    margin-right: 1rem;
-}
-
-/* Buttons */
-.btn-primary,
-.btn-secondary,
-.btn-outline {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-.btn-secondary {
-    background: #f8f9fa;
-    color: #666;
-    border: 1px solid #e9ecef;
-}
-
-.btn-secondary:hover {
-    background: #e9ecef;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #667eea;
-    border: 2px solid #667eea;
-}
-
-.btn-outline:hover {
-    background: #667eea;
-    color: white;
+.user-name {
+  font-weight: 500;
+  font-size: 14px;
 }
 
 /* Main Content */
 .main-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
+  min-height: calc(100vh - 72px);
 }
 
 .content-section {
-    display: none;
-    animation: fadeIn 0.5s ease;
+  display: none;
+  padding: 32px 0;
 }
 
 .content-section.active {
-    display: block;
+  display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* Dashboard Styles */
+.hero-section {
+  text-align: center;
+  margin-bottom: 48px;
 }
 
-.section-header h2 {
-    color: #333;
-    font-size: 1.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.hero-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1d29;
+  margin-bottom: 12px;
 }
 
-.section-header p {
-    color: #666;
-    margin-top: 0.5rem;
+.hero-subtitle {
+  font-size: 18px;
+  color: #6c757d;
+  margin-bottom: 32px;
 }
 
-/* Welcome Section */
-.welcome-section {
-    background: white;
-    border-radius: 20px;
-    padding: 4rem 2rem;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.welcome-logo {
-    font-size: 4rem;
-    color: #667eea;
-    margin-bottom: 2rem;
+.stat-card {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.welcome-content h1 {
-    font-size: 3rem;
-    color: #333;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1d29;
+  margin-bottom: 4px;
 }
 
-.welcome-content p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 3rem;
+.stat-label {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 8px;
 }
 
-.quick-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+.stat-change {
+  font-size: 14px;
+  font-weight: 600;
 }
 
-/* Order Form */
+.stat-change.positive {
+  color: #28a745;
+}
+
+.stat-change.negative {
+  color: #dc3545;
+}
+
+.stat-change.neutral {
+  color: #6c757d;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.card-title {
+  padding: 20px 24px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1d29;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.card-content {
+  padding: 0;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-symbol {
+  font-weight: 600;
+  color: #1a1d29;
+}
+
+.order-details {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.order-type {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.order-type.buy {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.order-type.sell {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.order-qty {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.market-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.market-item:last-child {
+  border-bottom: none;
+}
+
+.market-index {
+  font-weight: 600;
+  color: #1a1d29;
+}
+
+.market-value {
+  font-weight: 600;
+  color: #1a1d29;
+}
+
+.market-change {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.market-change.positive {
+  color: #28a745;
+}
+
+.market-change.negative {
+  color: #dc3545;
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1d29;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* Form Styles */
 .order-form-container {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  padding: 32px;
 }
 
 .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.form-group label {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
+.form-label {
+  font-weight: 600;
+  color: #343a40;
+  font-size: 14px;
 }
 
-.form-group input,
-.form-group select {
-    padding: 0.75rem;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+.form-input,
+.form-select {
+  padding: 12px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background-color: white;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.radio-label input[type="radio"] {
+  display: none;
+}
+
+.radio-custom {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #dee2e6;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.radio-custom.buy {
+  border-color: #28a745;
+}
+
+.radio-custom.sell {
+  border-color: #dc3545;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom.buy::after {
+  background-color: #28a745;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom.sell::after {
+  background-color: #dc3545;
 }
 
 .form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    padding-top: 2rem;
-    border-top: 1px solid #e9ecef;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
 }
 
-/* Tables */
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #357abd;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.btn-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+/* Table Styles */
 .table-container {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.table-filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.filter-select,
+.filter-date {
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.data-table-wrapper {
+  overflow-x: auto;
 }
 
 .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .data-table th {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 1rem 0.75rem;
-    text-align: left;
-    font-weight: 600;
-    position: sticky;
-    top: 0;
+  background-color: #f8f9fa;
+  padding: 16px 24px;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  font-size: 14px;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .data-table td {
-    padding: 1rem 0.75rem;
-    border-bottom: 1px solid #e9ecef;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f8f9fa;
+  font-size: 14px;
 }
 
-.data-table tbody tr:hover {
-    background: rgba(102, 126, 234, 0.05);
+.data-table tr:hover {
+  background-color: #f8f9fa;
 }
 
-.data-table tbody tr:last-child td {
-    border-bottom: none;
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-/* Trade Book Row Colors */
-.trade-buy {
-    background: rgba(34, 197, 94, 0.05);
+.status-badge.complete {
+  background-color: #d4edda;
+  color: #155724;
 }
 
-.trade-sell {
-    background: rgba(239, 68, 68, 0.05);
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
 }
 
-/* Badges and Status */
-.badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
-.badge.buy {
-    background: rgba(34, 197, 94, 0.1);
-    color: #16a34a;
+.action-btn {
+  background: none;
+  border: 1px solid #dee2e6;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #6c757d;
+  transition: all 0.2s ease;
 }
 
-.badge.sell {
-    background: rgba(239, 68, 68, 0.1);
-    color: #dc2626;
-}
-
-.status {
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.status.complete {
-    background: rgba(34, 197, 94, 0.1);
-    color: #16a34a;
-}
-
-.status.rejected {
-    background: rgba(239, 68, 68, 0.1);
-    color: #dc2626;
-}
-
-.status.pending {
-    background: rgba(251, 191, 36, 0.1);
-    color: #d97706;
+.action-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
 }
 
 /* Empty State */
 .empty-state {
-    background: white;
-    border-radius: 12px;
-    padding: 4rem 2rem;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.empty-state i {
-    font-size: 4rem;
-    color: #ccc;
-    margin-bottom: 1rem;
+.empty-icon {
+  font-size: 64px;
+  color: #dee2e6;
+  margin-bottom: 24px;
 }
 
-.empty-state h3 {
-    color: #666;
-    margin-bottom: 0.5rem;
+.empty-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 12px;
 }
 
-.empty-state p {
-    color: #999;
+.empty-message {
+  font-size: 16px;
+  color: #6c757d;
+  margin-bottom: 32px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Positions Summary */
+.positions-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.summary-card {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1d29;
+}
+
+.summary-value.positive {
+  color: #28a745;
+}
+
+.summary-value.negative {
+  color: #dc3545;
+}
+
+.positive {
+  color: #28a745;
+}
+
+.negative {
+  color: #dc3545;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 0 1rem;
-    }
+  .nav-container {
+    padding: 0 16px;
+    height: 64px;
+  }
 
-    .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
+  .nav-menu {
+    display: none;
+  }
 
-    .main-content {
-        padding: 1rem;
-    }
+  .hero-title {
+    font-size: 28px;
+  }
 
-    .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
+  .hero-subtitle {
+    font-size: 16px;
+  }
 
-    .welcome-content h1 {
-        font-size: 2rem;
-    }
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 
-    .form-actions {
-        flex-direction: column;
-    }
+  .order-form-container {
+    padding: 24px;
+  }
 
-    .quick-actions {
-        flex-direction: column;
-        align-items: center;
-    }
+  .container {
+    padding: 0 16px;
+  }
 
-    .table-container {
-        overflow-x: auto;
-    }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .data-table {
-        min-width: 800px;
-    }
+  .table-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .data-table {
+    font-size: 12px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 12px 16px;
+  }
 }
 
 @media (max-width: 480px) {
-    .nav-menu {
-        display: none;
-    }
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
 
-    .welcome-content h1 {
-        font-size: 1.5rem;
-    }
+  .positions-summary {
+    grid-template-columns: 1fr;
+  }
 
-    .welcome-section {
-        padding: 2rem 1rem;
+  .stat-value,
+  .summary-value {
+    font-size: 20px;
+  }
+}
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    overflow-y: auto; /* Enable scrolling for the entire modal */
+    padding: 20px 0; /* Add padding to prevent modal from touching edges */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+    max-height: 90vh; /* Limit height to 90% of viewport */
+    overflow: hidden; /* Hide overflow to contain scrolling within modal-body */
+    position: relative; /* For proper positioning */
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* Loading Animation */
-.loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
 }
 
-/* Success/Error Messages */
-.message {
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    opacity: 1;
+.close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
     transition: opacity 0.3s ease;
-    position: relative;
-    animation: slideDown 0.3s ease-out;
+    line-height: 1;
+    padding: 0;
+    border: none;
+    background: none;
 }
 
-.message.success {
-    background: rgba(34, 197, 94, 0.1);
-    color: #16a34a;
-    border: 1px solid rgba(34, 197, 94, 0.2);
+.close:hover {
+    opacity: 0.7;
 }
 
-.message.error {
-    background: rgba(239, 68, 68, 0.1);
-    color: #dc2626;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+.modal-body {
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: calc(90vh - 80px); /* Subtract header height */
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.user-info {
+    display: grid;
+    gap: 15px;
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+.info-group {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-::-webkit-scrollbar-track {
+.info-group:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Tags Container */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: #667eea;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.tag.success {
+    background-color: #28a745;
+}
+
+.tag.success:hover {
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.tag.warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.tag.warning:hover {
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+    color: #999;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal {
+        padding: 10px 0;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-height: 95vh;
+        margin: 0 auto;
+    }
+    
+    .modal-header {
+        padding: 15px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body {
+        padding: 15px;
+        max-height: calc(95vh - 70px);
+    }
+    
+    .info-group {
+        padding: 12px;
+    }
+    
+    .tags-container {
+        gap: 6px;
+    }
+    
+    .tag {
+        font-size: 0.75rem;
+        padding: 3px 10px;
+    }
+}
+
+/* Smooth scrollbar styling */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
     background: #f1f1f1;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #667eea;
-    border-radius: 4px;
+.modal-body::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+    transition: background 0.2s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #5a67d8;
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }
+
 </style>
 </head>
 <body>
@@ -690,43 +977,47 @@ body {
             <div class="nav-brand">
                 <div class="logo">
                     <i class="fas fa-chart-line"></i>
-                    <span>Trade2Algo</span>
+                    <span class="brand-name">Trade2Algo</span>
                 </div>
                 <p class="tagline">Where Innovation Meets Execution</p>
             </div>
+            
             <nav class="nav-menu">
-                <a href="#" class="nav-link active" data-section="dashboard">
-                    <i class="fas fa-home"></i> Dashboard
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
                 </a>
-                <a href="#" class="nav-link" data-section="place-order">
-                    <i class="fas fa-plus-circle"></i> Place Order
+                <a href="#place-order" class="nav-link" data-section="place-order">
+                    <i class="fas fa-plus-circle"></i>
+                    Place Order
                 </a>
-                <a href="#" class="nav-link" data-section="order-status" onclick="getOrderStatus()">
-                    <i class="fas fa-book"></i> Order Status
+                <a href="#order-status" class="nav-link" data-section="order-status">
+                    <i class="fas fa-list-alt"></i>
+                    Order Status
                 </a>
-                <a href="#" class="nav-link" data-section="user-profile" onclick="getUserProfile()">
-                    <i class="fas fa-user-circle"></i> User Profile
+                <a href="#trade-book" class="nav-link" data-section="trade-book">
+                    <i class="fas fa-book"></i>
+                    Trade Book
                 </a>
-                <a href="#" class="nav-link" data-section="trade-book">
-                    <i class="fas fa-exchange-alt"></i> Trade Book
-                </a>
-                <a href="#" class="nav-link" data-section="positions">
-                    <i class="fas fa-briefcase"></i> Positions
+                <a href="#positions" class="nav-link" data-section="positions">
+                    <i class="fas fa-chart-pie"></i>
+                    Positions
                 </a>
             </nav>
+            
             <div class="nav-actions">
-                <button class="btn-secondary">
+                <button class="nav-btn settings-btn">
                     <i class="fas fa-cog"></i>
                 </button>
-                <button class="btn-secondary">
-                    <i class="fas fa-user"></i>
+                <button id="loginBtn" class="login-btn">
+                    <span class="loading-spinner"></span>
+                    <span class="btn-text">Login</span>
                 </button>
-                <button class="btn-primary" id="loginBtn" onclick="login()">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-                <button class="btn-outline" id="logoutBtn" onclick="logout()" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+                <div id="userProfile" style="display: none;">
+    <div id="userAvatar"></div>
+    <span id="userName"></span>
+</div>
+
             </div>
         </div>
     </header>
@@ -735,20 +1026,78 @@ body {
     <main class="main-content">
         <!-- Dashboard Section -->
         <section id="dashboard" class="content-section active">
-            <div class="welcome-section">
-                <div class="welcome-content">
-                    <div class="welcome-logo">
-                        <i class="fas fa-chart-line"></i>
+            <div class="container">
+                <div class="hero-section">
+                    <h1 class="hero-title">Welcome to Trade2Algo</h1>
+                    <p class="hero-subtitle">Your professional trading platform for algorithmic and manual trading</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">₹2,45,680</div>
+                            <div class="stat-label">Portfolio Value</div>
+                            <div class="stat-change positive">+2.34%</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Active Positions</div>
+                            <div class="stat-change neutral">--</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">₹8,450</div>
+                            <div class="stat-label">Today's P&L</div>
+                            <div class="stat-change positive">+1.2%</div>
+                        </div>
                     </div>
-                    <h1>Welcome to Trade2Algo</h1>
-                    <p>Your professional trading platform for seamless execution</p>
-                    <div class="quick-actions">
-                        <button class="btn-primary" onclick="showSection('place-order')">
-                            <i class="fas fa-plus"></i> Place New Order
+                    
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" data-action="place-order">
+                            <i class="fas fa-plus"></i>
+                            Place New Order
                         </button>
-                        <button class="btn-outline" onclick="showSection('order-book')">
-                            <i class="fas fa-list"></i> View Orders
+                        <button class="btn btn-secondary" data-action="order-status">
+                            <i class="fas fa-eye"></i>
+                            View Orders
                         </button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 class="card-title">Recent Orders</h3>
+                        <div class="card-content">
+                            <div class="order-item">
+                                <div class="order-symbol">RELIANCE</div>
+                                <div class="order-details">
+                                    <span class="order-type buy">BUY</span>
+                                    <span class="order-qty">100 qty</span>
+                                </div>
+                                <div class="order-status complete">Complete</div>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-symbol">TCS</div>
+                                <div class="order-details">
+                                    <span class="order-type sell">SELL</span>
+                                    <span class="order-qty">50 qty</span>
+                                </div>
+                                <div class="order-status pending">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3 class="card-title">Market Overview</h3>
+                        <div class="card-content">
+                            <div class="market-item">
+                                <span class="market-index">NIFTY 50</span>
+                                <span class="market-value">19,674.25</span>
+                                <span class="market-change positive">+0.85%</span>
+                            </div>
+                            <div class="market-item">
+                                <span class="market-index">SENSEX</span>
+                                <span class="market-value">66,230.15</span>
+                                <span class="market-change positive">+0.92%</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -756,477 +1105,1142 @@ body {
 
         <!-- Place Order Section -->
         <section id="place-order" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-plus-circle"></i> Place Order</h2>
-                <p>Execute your trading strategy with precision</p>
-            </div>
-            
-            <div class="order-form-container">
-                <form class="order-form" id="orderForm" onsubmit="placeOrder(event)">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="exchange">Exchange</label>
-                            <select id="exchange" name="exchange" required>
-                                <option value="nse_cm">NSE CM</option>
-                                <option value="nse_fo">NSE FO</option>
-                                <option value="bse">BSE</option>
-                            </select>
+            <div class="container">
+                <div class="page-header">
+                    <h2 class="page-title">Place Order</h2>
+                    <p class="page-subtitle">Execute your trading strategy with precision</p>
+                </div>
+                
+                <div class="order-form-container">
+                    <form class="order-form" id="orderForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Exchange</label>
+                                <select class="form-select" name="exchange" required>
+                                    <option value="">Select Exchange</option>
+                                    <option value="NSE">NSE</option>
+                                    <option value="BSE">BSE</option>
+                                    <option value="MCX">MCX</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Instrument Type</label>
+                                <select class="form-select" name="instrument" required>
+                                    <option value="">Select Instrument</option>
+                                    <option value="EQ">Equity</option>
+                                    <option value="FUT">Futures</option>
+                                    <option value="OPT">Options</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Symbol</label>
+                                <input type="text" class="form-input" name="symbol" placeholder="e.g., RELIANCE" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Option Type</label>
+                                <select class="form-select" name="optionType">
+                                    <option value="">Select Option Type</option>
+                                    <option value="CE">Call (CE)</option>
+                                    <option value="PE">Put (PE)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Expiry Date</label>
+                                <input type="date" class="form-input" name="expiry">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Strike Price</label>
+                                <input type="number" class="form-input" name="strike" placeholder="0.00" step="0.05">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Transaction</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="transaction" value="BUY" required>
+                                        <span class="radio-custom buy"></span>
+                                        Buy
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="transaction" value="SELL" required>
+                                        <span class="radio-custom sell"></span>
+                                        Sell
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Product</label>
+                                <select class="form-select" name="product" required>
+                                    <option value="">Select Product</option>
+                                    <option value="CNC">CNC</option>
+                                    <option value="MIS">MIS</option>
+                                    <option value="NRML">NRML</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Order Type</label>
+                                <select class="form-select" name="orderType" required>
+                                    <option value="">Select Order Type</option>
+                                    <option value="MARKET">Market</option>
+                                    <option value="LIMIT">Limit</option>
+                                    <option value="SL">Stop Loss</option>
+                                    <option value="SL-M">Stop Loss Market</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Quantity</label>
+                                <input type="number" class="form-input" name="quantity" placeholder="0" min="1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Price</label>
+                                <input type="number" class="form-input" name="price" placeholder="0.00" step="0.05">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Trigger Price</label>
+                                <input type="number" class="form-input" name="triggerPrice" placeholder="0.00" step="0.05">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Validity</label>
+                                <select class="form-select" name="validity" required>
+                                    <option value="DAY">Day</option>
+                                    <option value="IOC">IOC</option>
+                                    <option value="GTT">GTT</option>
+                                </select>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="instrument">Instrument Type</label>
-                            <select id="instrument" name="instrument" required>
-                                <option value="EQ">EQ</option>
-                                <option value="OPTIDX">OPTIDX</option>
-                                <option value="FUTSTK">FUTSTK</option>
-                            </select>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="resetForm">
+                                <i class="fas fa-undo"></i>
+                                Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Place Order
+                            </button>
                         </div>
-
-                        <div class="form-group">
-                            <label for="symbol">Symbol</label>
-                            <select id="symbol" name="tradingsecurity" required>
-                                <option value="RELIANCE">RELIANCE</option>
-                                <option value="NIFTY">NIFTY</option>
-                                <option value="IDEA">IDEA</option>
-                                <option value="TCS">TCS</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="optionType">Option Type</label>
-                            <select id="optionType" name="optionType">
-                                <option value="">Select Option Type</option>
-                                <option value="CE">CE</option>
-                                <option value="PE">PE</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="expiryDate">Expiry Date</label>
-                            <select id="expiryDate" name="expiryDate">
-                                <option value="">Select Expiry</option>
-                                <option value="12JUN2025">12JUN2025</option>
-                                <option value="19JUN2025">19JUN2025</option>
-                                <option value="26JUN2025">26JUN2025</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="strikePrice">Strike Price</label>
-                            <select id="strikePrice" name="strikePrice">
-                                <option value="">Select Strike</option>
-                                <option value="26800">26800</option>
-                                <option value="27000">27000</option>
-                                <option value="27200">27200</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="transaction">Transaction</label>
-                            <select id="transaction" name="transaction_type" required>
-                                <option value="BUY">BUY</option>
-                                <option value="SELL">SELL</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="product">Product</label>
-                            <select id="product" name="product" required>
-                                <option value="NRML">NRML</option>
-                                <option value="MIS">MIS</option>
-                                <option value="CNC">CNC</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="orderType">Order Type</label>
-                            <select id="orderType" name="order_type" required>
-                                <option value="L">Limit</option>
-                                <option value="MKT">Market</option>
-                                <option value="SL">Stop Loss</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quantity">Quantity</label>
-                            <input type="number" id="quantity" name="quantity" placeholder="e.g., 100" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="number" id="price" name="price" step="0.01" placeholder="Leave empty for MARKET orders">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="triggerPrice">Trigger Price</label>
-                            <input type="number" id="triggerPrice" name="triggerPrice" step="0.01" placeholder="Only for SL orders">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="validity">Validity</label>
-                            <select id="validity" name="validity" required>
-                                <option value="DAY">DAY</option>
-                                <option value="IOC">IOC</option>
-                                <option value="GTD">GTD</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="resetForm()">
-                            <i class="fas fa-undo"></i> Reset
-                        </button>
-                        <button type="submit" class="btn-primary" id="placeOrderBtn">
-                            <i class="fas fa-paper-plane"></i> Place Order
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </section>
 
-        <!-- Order Book Section -->
-        <section id="order-book" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-book"></i> Order Book</h2>
-                <p>Track all your orders and their status</p>
-                <button class="btn-primary" onclick="refreshOrderBook()">
-                    <i class="fas fa-sync-alt"></i> Refresh
-                </button>
-            </div>
-
-            <div class="table-container">
-                <table class="data-table" id="orderBookTable">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Symbol</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Trigger</th>
-                            <th>Order Time</th>
-                            <th>Product</th>
-                            <th>Segment</th>
-                            <th>Exchange</th>
-                            <th>Reject Reason</th>
-                            <th>Validity</th>
-                            <th>Avg Price</th>
-                            <th>Order Source</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>250606000219478</td>
-                            <td>NIFTY25612268000CE</td>
-                            <td><span class="badge sell">SELL</span></td>
-                            <td><span class="status complete">Complete</span></td>
-                            <td>75</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>06-Jun-2025 10:26:00</td>
-                            <td>NRML</td>
-                            <td>nse_fo</td>
-                            <td>NSE</td>
-                            <td>--</td>
-                            <td>DAY</td>
-                            <td>6.85</td>
-                            <td>ADMINCPPAPI_Web</td>
-                        </tr>
-                        <tr>
-                            <td>250606000208686</td>
-                            <td>NIFTY25612268000CE</td>
-                            <td><span class="badge buy">BUY</span></td>
-                            <td><span class="status complete">Complete</span></td>
-                            <td>75</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>06-Jun-2025 10:22:12</td>
-                            <td>NRML</td>
-                            <td>nse_fo</td>
-                            <td>NSE</td>
-                            <td>--</td>
-                            <td>DAY</td>
-                            <td>--</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>250606000188885</td>
-                            <td>IDEA-EQ</td>
-                            <td><span class="badge sell">SELL</span></td>
-                            <td><span class="status complete">Complete</span></td>
-                            <td>1</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>06-Jun-2025 10:13:50</td>
-                            <td>NRML</td>
-                            <td>nse_cm</td>
-                            <td>NSE</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>250606000183382</td>
-                            <td>IDEA-EQ</td>
-                            <td><span class="badge buy">BUY</span></td>
-                            <td><span class="status complete">Complete</span></td>
-                            <td>1</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>06-Jun-2025 10:12:06</td>
-                            <td>NRML</td>
-                            <td>nse_cm</td>
-                            <td>NSE</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>250606000178333</td>
-                            <td>TCS-EQ</td>
-                            <td><span class="badge buy">BUY</span></td>
-                            <td><span class="status rejected">Rejected</span></td>
-                            <td>11111</td>
-                            <td>0.00</td>
-                            <td>0.00</td>
-                            <td>06-Jun-2025 10:10:48</td>
-                            <td>NRML</td>
-                            <td>nse_cm</td>
-                            <td>NSE</td>
-                            <td>RMS:Rule: Order Value limit including square off order,Current:...</td>
-                            <td>DAY</td>
-                            <td>0.00</td>
-                            <td>ADMINCPPAPI_Web</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- Order Status Section -->
+        <section id="order-status" class="content-section">
+            <div class="container">
+                <div class="page-header">
+                    <h2 class="page-title">Order Status</h2>
+                    <p class="page-subtitle">Track your order execution in real-time</p>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <div class="table-filters">
+                            <select class="filter-select">
+                                <option value="all">All Orders</option>
+                                <option value="complete">Complete</option>
+                                <option value="pending">Pending</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <input type="date" class="filter-date">
+                        </div>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="ordersTable">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Symbol</th>
+                                    <th>Type</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD001</td>
+                                    <td>RELIANCE</td>
+                                    <td><span class="order-type buy">BUY</span></td>
+                                    <td>100</td>
+                                    <td>₹2,450.00</td>
+                                    <td><span class="status-badge complete">Complete</span></td>
+                                    <td>10:30 AM</td>
+                                    <td>
+                                        <button class="action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD002</td>
+                                    <td>TCS</td>
+                                    <td><span class="order-type sell">SELL</span></td>
+                                    <td>50</td>
+                                    <td>₹3,680.00</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>11:15 AM</td>
+                                    <td>
+                                        <button class="action-btn" title="Cancel Order">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD003</td>
+                                    <td>HDFC</td>
+                                    <td><span class="order-type buy">BUY</span></td>
+                                    <td>25</td>
+                                    <td>₹1,520.00</td>
+                                    <td><span class="status-badge rejected">Rejected</span></td>
+                                    <td>09:45 AM</td>
+                                    <td>
+                                        <button class="action-btn" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Trade Book Section -->
         <section id="trade-book" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-exchange-alt"></i> Trade Book</h2>
-                <p>View all executed trades</p>
-                <button class="btn-primary" onclick="refreshTradeBook()">
-                    <i class="fas fa-sync-alt"></i> Refresh
-                </button>
-            </div>
-
-            <div class="table-container">
-                <table class="data-table" id="tradeBookTable">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Symbol</th>
-                            <th>Type</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            <th>Value</th>
-                            <th>Time</th>
-                            <th>Order No</th>
-                            <th>Product</th>
-                            <th>Segment</th>
-                            <th>Instrument</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="trade-sell">
-                            <td>1</td>
-                            <td>NIFTY</td>
-                            <td><span class="badge sell">SELL</span></td>
-                            <td>75</td>
-                            <td>1.25</td>
-                            <td>93.75</td>
-                            <td>06-Jun-2025 10:26:00</td>
-                            <td>250606000219478</td>
-                            <td>NRML</td>
-                            <td>FO</td>
-                            <td>OPTIDX</td>
-                        </tr>
-                        <tr class="trade-buy">
-                            <td>2</td>
-                            <td>NIFTY</td>
-                            <td><span class="badge buy">BUY</span></td>
-                            <td>75</td>
-                            <td>1.30</td>
-                            <td>97.50</td>
-                            <td>06-Jun-2025 10:22:12</td>
-                            <td>250606000208686</td>
-                            <td>NRML</td>
-                            <td>FO</td>
-                            <td>OPTIDX</td>
-                        </tr>
-                        <tr class="trade-sell">
-                            <td>3</td>
-                            <td>IDEA</td>
-                            <td><span class="badge sell">SELL</span></td>
-                            <td>1</td>
-                            <td>6.83</td>
-                            <td>6.83</td>
-                            <td>06-Jun-2025 10:13:50</td>
-                            <td>250606000188885</td>
-                            <td>NRML</td>
-                            <td>CM</td>
-                            <td>EQ</td>
-                        </tr>
-                        <tr class="trade-buy">
-                            <td>4</td>
-                            <td>IDEA</td>
-                            <td><span class="badge buy">BUY</span></td>
-                            <td>1</td>
-                            <td>6.85</td>
-                            <td>6.85</td>
-                            <td>06-Jun-2025 10:12:06</td>
-                            <td>250606000183382</td>
-                            <td>NRML</td>
-                            <td>CM</td>
-                            <td>EQ</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="container">
+                <div class="page-header">
+                    <h2 class="page-title">Trade Book</h2>
+                    <p class="page-subtitle">Complete history of your executed trades</p>
+                </div>
+                
+                <div class="empty-state" id="tradeBookEmpty">
+                    <div class="empty-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="empty-title">No Trades Yet</h3>
+                    <p class="empty-message">Your executed trades will appear here once you start trading</p>
+                    <button class="btn btn-primary" data-action="place-order">
+                        <i class="fas fa-plus"></i>
+                        Place Your First Order
+                    </button>
+                </div>
             </div>
         </section>
 
         <!-- Positions Section -->
         <section id="positions" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-briefcase"></i> Positions</h2>
-                <p>Monitor your current positions</p>
-            </div>
-            <div class="empty-state">
-                <i class="fas fa-briefcase"></i>
-                <h3>No Positions</h3>
-                <p>You don't have any open positions at the moment.</p>
-            </div>
-        </section>
-        
-        <!-- Order Status Section -->
-        <section id="order-status" class="content-section orders-section">
-            <div class="section-header">
-                <h2><i class="fas fa-list-alt"></i> Order Status</h2>
-                <p>View and manage your orders</p>
-                <button class="btn-primary refresh-btn" onclick="getOrderStatus()">
-                    <i class="fas fa-sync-alt"></i> Refresh
-                </button>
-            </div>
-            <div class="loading-container" id="orderStatusLoading" style="display: none;">
-                <div class="loading-spinner"></div>
-                <p>Loading orders...</p>
-            </div>
-            <div class="info-message" id="orderStatusInfo" style="display: none;">
-                <i class="fas fa-info-circle"></i>
-                <p>Please login to view your orders.</p>
-            </div>
-            <div class="error-message" id="orderStatusError" style="display: none;">
-                <i class="fas fa-exclamation-circle"></i>
-                <p id="orderStatusErrorText">Error loading orders.</p>
-            </div>
-            <div class="orders-table-container" id="ordersTableContainer" style="display: none;">
-                <table class="orders-table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Symbol</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Order Time</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTableBody">
-                        <!-- Orders will be populated here -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="empty-state" id="noOrdersMessage" style="display: none;">
-                <i class="fas fa-clipboard-list"></i>
-                <h3>No Orders</h3>
-                <p>You don't have any orders at the moment.</p>
-                <button class="btn-primary" onclick="showSection('place-order')">
-                    <i class="fas fa-plus"></i> Place New Order
-                </button>
-            </div>
-        </section>
-        
-        <!-- User Profile Section -->
-        <section id="user-profile" class="content-section profile-section">
-            <div class="section-header">
-                <h2><i class="fas fa-user"></i> User Profile</h2>
-                <p>View your account information</p>
-                <button class="btn-primary refresh-btn" onclick="getUserProfile()">
-                    <i class="fas fa-sync-alt"></i> Refresh
-                </button>
-            </div>
-            <div class="loading-container" id="profileLoading" style="display: none;">
-                <div class="loading-spinner"></div>
-                <p>Loading profile...</p>
-            </div>
-            <div class="info-message" id="profileInfo" style="display: none;">
-                <i class="fas fa-info-circle"></i>
-                <p>Please login to view your profile.</p>
-            </div>
-            <div class="error-message" id="profileError" style="display: none;">
-                <i class="fas fa-exclamation-circle"></i>
-                <p id="profileErrorText">Error loading profile.</p>
-            </div>
-            <div class="profile-card" id="profileCard" style="display: none;">
-                <div class="profile-header">
-                    <div class="profile-icon">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
-                    <h3 id="profileName">User Name</h3>
-                    <p id="profileEmail">user@example.com</p>
+            <div class="container">
+                <div class="page-header">
+                    <h2 class="page-title">Positions</h2>
+                    <p class="page-subtitle">Monitor your current market positions</p>
                 </div>
-                <div class="profile-details">
-                    <div class="detail-row">
-                        <div class="detail-label">User ID</div>
-                        <div class="detail-value" id="profileUserId">-</div>
+                
+                <div class="positions-summary">
+                    <div class="summary-card">
+                        <div class="summary-label">Total P&L</div>
+                        <div class="summary-value positive">+₹8,450.00</div>
                     </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Account Type</div>
-                        <div class="detail-value" id="profileAccountType">-</div>
+                    <div class="summary-card">
+                        <div class="summary-label">Day P&L</div>
+                        <div class="summary-value positive">+₹1,250.00</div>
                     </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Mobile</div>
-                        <div class="detail-value" id="profileMobile">-</div>
+                    <div class="summary-card">
+                        <div class="summary-label">Total Value</div>
+                        <div class="summary-value">₹2,45,680.00</div>
                     </div>
-                    <div class="detail-row">
-                        <div class="detail-label">PAN</div>
-                        <div class="detail-value" id="profilePan">-</div>
-                    </div>
-                    <div class="detail-row">
-                        <div class="detail-label">Status</div>
-                        <div class="detail-value" id="profileStatus">-</div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Quantity</th>
+                                    <th>Avg Price</th>
+                                    <th>LTP</th>
+                                    <th>P&L</th>
+                                    <th>Day P&L</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>RELIANCE</td>
+                                    <td>100</td>
+                                    <td>₹2,450.00</td>
+                                    <td>₹2,485.50</td>
+                                    <td class="positive">+₹3,550.00</td>
+                                    <td class="positive">+₹850.00</td>
+                                    <td>
+                                        <button class="action-btn" title="Square Off">
+                                            <i class="fas fa-square"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TCS</td>
+                                    <td>75</td>
+                                    <td>₹3,680.00</td>
+                                    <td>₹3,720.25</td>
+                                    <td class="positive">+₹3,018.75</td>
+                                    <td class="positive">+₹400.00</td>
+                                    <td>
+                                        <button class="action-btn" title="Square Off">
+                                            <i class="fas fa-square"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <script>
-        // Function to show different sections
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Update active nav link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-section') === sectionId) {
-                    link.classList.add('active');
+    <!-- User Profile Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user"></i> User Profile</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="userDetailsContent" class="user-info">
+                    <!-- User details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="alertContainer"></div>
+<button id="settingsBtn" style="display: none;">Settings</button>
+    <script >
+        class TradingApp {
+    constructor() {
+        this.isLoggedIn = false;
+        this.userProfile = null;
+        this.initEventListeners();
+    }
+
+    initEventListeners() {
+        // Add null checks for each element
+        const loginBtn = document.getElementById('loginBtn');
+        const userProfile = document.getElementById('userProfile');
+        const closeModal = document.getElementById('closeModal');
+        
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => this.handleLogin());
+        }
+        
+        if (userProfile) {
+            userProfile.addEventListener('click', () => this.showUserProfile());
+        }
+        
+        if (closeModal) {
+            closeModal.addEventListener('click', () => this.closeModal());
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('userModal');
+            if (event.target === modal) {
+                this.closeModal();
+            }
+        });
+    }
+
+    async handleLogin() {
+        const loginBtn = document.getElementById('loginBtn');
+        if (!loginBtn) return;
+        
+        const spinner = loginBtn.querySelector('.loading-spinner');
+        const btnText = loginBtn.querySelector('.btn-text');
+
+        // Show loading state
+        loginBtn.disabled = true;
+        if (spinner) spinner.style.display = 'inline-block';
+        if (btnText) btnText.textContent = 'Logging in...';
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
             });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.showAlert('Login successful! Welcome to TradingPro.', 'success');
+                await this.loadUserProfile();
+                this.updateUIAfterLogin();
+            } else {
+                throw new Error(data.message || 'Login failed');
+            }
+        } catch (error) {
+            this.showAlert(`Login failed: ${error.message}`, 'error');
+        } finally {
+            // Reset button state
+            loginBtn.disabled = false;
+            if (spinner) spinner.style.display = 'none';
+            if (btnText) btnText.textContent = 'Login';
         }
-    </script>
+    }
+
+    async loadUserProfile() {
+        try {
+            const response = await fetch('/user-profile');
+            const data = await response.json();
+
+            if (data.status === 'successful') {
+                this.userProfile = data.data;
+                this.isLoggedIn = true;
+            } else {
+                throw new Error(data.message || 'Failed to load user profile');
+            }
+        } catch (error) {
+            this.showAlert(`Failed to load profile: ${error.message}`, 'error');
+        }
+    }
+
+    updateUIAfterLogin() {
+        if (this.userProfile) {
+            // Hide login button
+            const loginBtn = document.getElementById('loginBtn');
+            const userProfile = document.getElementById('userProfile');
+            const settingsBtn = document.getElementById('settingsBtn');
+            
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (userProfile) userProfile.style.display = 'flex';
+            if (settingsBtn) settingsBtn.style.display = 'block';
+            
+            // Update user info in navbar
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            
+            if (userAvatar && userName) {
+                const initials = this.userProfile.user_id ? 
+                    this.userProfile.user_id.substring(0, 2).toUpperCase() : 'US';
+                userAvatar.textContent = initials;
+                userName.textContent = this.userProfile.user_id || 'User';
+            }
+        }
+    }
+
+    showUserProfile() {
+        if (!this.userProfile) {
+            this.showAlert('Please login first to view profile', 'error');
+            return;
+        }
+
+        this.renderUserDetails();
+        const userModal = document.getElementById('userModal');
+        if (userModal) userModal.style.display = 'block';
+    }
+
+    renderUserDetails() {
+    const container = document.getElementById('userDetailsContent');
+    if (!container) return;
+    
+    const user = this.userProfile;
+
+    container.innerHTML = `
+        <div class="info-group">
+            <div class="info-label">User ID</div>
+            <div class="info-value">${user.user_id || 'N/A'}</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Email</div>
+            <div class="info-value">${user.email || 'N/A'}</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">User Type</div>
+            <div class="info-value">${user.user_type || 'N/A'}</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">User Name</div>
+            <div class="info-value">${user.user_name || '<div class="empty-state">Not provided</div>'}</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Short Name</div>
+            <div class="info-value">${user.user_shortname || '<div class="empty-state">Not provided</div>'}</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Broker</div>
+            <div class="info-value">${user.broker || '<div class="empty-state">No broker assigned</div>'}</div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Available Exchanges</div>
+            <div class="info-value">
+                ${user.exchanges && user.exchanges.length > 0 ? 
+                    `<div class="tags-container">
+                        ${user.exchanges.map(exchange => 
+                            `<span class="tag">${exchange}</span>`
+                        ).join('')}
+                    </div>` : 
+                    '<div class="empty-state">No exchanges available</div>'
+                }
+            </div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Products</div>
+            <div class="info-value">
+                ${user.products && user.products.length > 0 ? 
+                    `<div class="tags-container">
+                        ${user.products.map(product => 
+                            `<span class="tag success">${product}</span>`
+                        ).join('')}
+                    </div>` : 
+                    '<div class="empty-state">No products available</div>'
+                }
+            </div>
+        </div>
+
+        <div class="info-group">
+            <div class="info-label">Order Types</div>
+            <div class="info-value">
+                ${user['order-types'] && user['order-types'].length > 0 ? 
+                    `<div class="tags-container">
+                        ${user['order-types'].map(orderType => 
+                            `<span class="tag warning">${orderType}</span>`
+                        ).join('')}
+                    </div>` : 
+                    '<div class="empty-state">No order types available</div>'
+                }
+            </div>
+        </div>
+    `;
+}
+
+    closeModal() {
+        const userModal = document.getElementById('userModal');
+        if (userModal) userModal.style.display = 'none';
+    }
+
+    showAlert(message, type) {
+        const alertContainer = document.getElementById('alertContainer');
+        if (!alertContainer) return;
+        
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type}`;
+        alert.style.display = 'block';
+        alert.textContent = message;
+        
+        alertContainer.innerHTML = '';
+        alertContainer.appendChild(alert);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            alert.style.display = 'none';
+        }, 5000);
+    }
+}
+
+        // Navigation functionality
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize TradingApp first
+            new TradingApp();
+
+            // Navigation link handling
+            const navLinks = document.querySelectorAll(".nav-link")
+            const contentSections = document.querySelectorAll(".content-section")
+
+            navLinks.forEach((link) => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault()
+
+                    // Remove active class from all links
+                    navLinks.forEach((l) => l.classList.remove("active"))
+
+                    // Add active class to clicked link
+                    this.classList.add("active")
+
+                    // Hide all content sections
+                    contentSections.forEach((section) => section.classList.remove("active"))
+
+                    // Show target section
+                    const targetSection = this.getAttribute("data-section")
+                    const section = document.getElementById(targetSection);
+                    if (section) {
+                        section.classList.add("active")
+                    }
+                })
+            })
+
+            // Action button handling
+            const actionButtons = document.querySelectorAll("[data-action]")
+            actionButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const action = this.getAttribute("data-action")
+
+                    // Remove active from all nav links
+                    navLinks.forEach((l) => l.classList.remove("active"))
+
+                    // Hide all sections
+                    contentSections.forEach((section) => section.classList.remove("active"))
+
+                    // Show target section and activate corresponding nav link
+                    if (action === "place-order") {
+                        const section = document.getElementById("place-order");
+                        const navLink = document.querySelector('[data-section="place-order"]');
+                        if (section) section.classList.add("active")
+                        if (navLink) navLink.classList.add("active")
+                    } else if (action === "order-status") {
+                        const section = document.getElementById("order-status");
+                        const navLink = document.querySelector('[data-section="order-status"]');
+                        if (section) section.classList.add("active")
+                        if (navLink) navLink.classList.add("active")
+                    }
+                })
+            })
+
+            // Order form handling
+            const orderForm = document.getElementById("orderForm")
+            const resetButton = document.getElementById("resetForm")
+
+            if (orderForm) {
+                orderForm.addEventListener("submit", function (e) {
+                    e.preventDefault()
+
+                    // Get form data
+                    const formData = new FormData(this)
+                    const orderData = {}
+
+                    for (const [key, value] of formData.entries()) {
+                        orderData[key] = value
+                    }
+
+                    // Simulate order placement
+                    showNotification("Order placed successfully!", "success")
+
+                    // Add order to table (simulation)
+                    addOrderToTable(orderData)
+
+                    // Reset form
+                    this.reset()
+
+                    // Switch to order status view
+                    setTimeout(() => {
+                        navLinks.forEach((l) => l.classList.remove("active"))
+                        contentSections.forEach((section) => section.classList.remove("active"))
+                        const orderSection = document.getElementById("order-status");
+                        const orderNavLink = document.querySelector('[data-section="order-status"]');
+                        if (orderSection) orderSection.classList.add("active")
+                        if (orderNavLink) orderNavLink.classList.add("active")
+                    }, 1500)
+                })
+            }
+
+            if (resetButton) {
+                resetButton.addEventListener("click", () => {
+                    if (orderForm) orderForm.reset()
+                })
+            }
+
+            // Table filter functionality
+            const filterSelect = document.querySelector(".filter-select")
+            if (filterSelect) {
+                filterSelect.addEventListener("change", function () {
+                    filterOrderTable(this.value)
+                })
+            }
+
+            // Refresh button
+            const refreshButton = document.querySelector(".btn:has(.fa-sync-alt)")
+            if (refreshButton) {
+                refreshButton.addEventListener("click", function () {
+                    const icon = this.querySelector("i")
+                    if (icon) {
+                        icon.style.animation = "spin 1s linear"
+                        setTimeout(() => {
+                            icon.style.animation = ""
+                            showNotification("Data refreshed", "info")
+                        }, 1000)
+                    }
+                })
+            }
+
+            // Action buttons in tables
+            const actionBtns = document.querySelectorAll(".action-btn")
+            actionBtns.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    const icon = this.querySelector("i")
+                    if (!icon) return;
+
+                    if (icon.classList.contains("fa-eye")) {
+                        showNotification("Order details viewed", "info")
+                    } else if (icon.classList.contains("fa-times")) {
+                        showNotification("Order cancelled", "warning")
+                        // Remove the row
+                        this.closest("tr").style.opacity = "0.5"
+                    } else if (icon.classList.contains("fa-square")) {
+                        showNotification("Position squared off", "success")
+                        this.closest("tr").style.opacity = "0.5"
+                    }
+                })
+            })
+
+            // Settings button
+            const settingsBtn = document.querySelector(".settings-btn")
+            if (settingsBtn) {
+                settingsBtn.addEventListener("click", () => {
+                    showNotification("Settings panel opened", "info")
+                })
+            }
+        })
+
+        // Utility functions
+        function showNotification(message, type = "info") {
+            // Create notification element
+            const notification = document.createElement("div")
+            notification.className = `notification notification-${type}`
+            notification.innerHTML = `
+                <i class="fas fa-${getNotificationIcon(type)}"></i>
+                <span>${message}</span>
+            `
+
+            // Style the notification
+            Object.assign(notification.style, {
+                position: "fixed",
+                top: "20px",
+                right: "20px",
+                padding: "12px 20px",
+                borderRadius: "6px",
+                color: "white",
+                fontWeight: "500",
+                fontSize: "14px",
+                zIndex: "10000",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                minWidth: "250px",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                transform: "translateX(100%)",
+                transition: "transform 0.3s ease",
+            })
+
+            // Set background color based on type
+            const colors = {
+                success: "#28a745",
+                error: "#dc3545",
+                warning: "#ffc107",
+                info: "#4a90e2",
+            }
+
+            notification.style.backgroundColor = colors[type] || colors.info
+
+            // Add to DOM
+            document.body.appendChild(notification)
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = "translateX(0)"
+            }, 100)
+
+            // Remove after delay
+            setTimeout(() => {
+                notification.style.transform = "translateX(100%)"
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification)
+                    }
+                }, 300)
+            }, 3000)
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                success: "check-circle",
+                error: "exclamation-circle",
+                warning: "exclamation-triangle",
+                info: "info-circle",
+            }
+            return icons[type] || icons.info
+        }
+
+        // Order Management JavaScript
+class OrderManager {
+    constructor() {
+        this.ordersData = [];
+        this.currentFilter = 'all';
+        this.currentDate = '';
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.loadOrders();
+    }
+
+    setupEventListeners() {
+        // Filter dropdown
+        const filterSelect = document.querySelector('.filter-select');
+        if (filterSelect) {
+            filterSelect.addEventListener('change', (e) => {
+                this.currentFilter = e.target.value;
+                this.loadOrders();
+            });
+        }
+
+        // Date filter
+        const filterDate = document.querySelector('.filter-date');
+        if (filterDate) {
+            filterDate.addEventListener('change', (e) => {
+                this.currentDate = e.target.value;
+                this.loadOrders();
+            });
+        }
+
+        // Refresh button
+        const refreshBtn = document.querySelector('.btn.btn-secondary');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                this.loadOrders();
+            });
+        }
+    }
+
+    async loadOrders() {
+        try {
+            this.showLoading();
+            
+            // Build query parameters
+            const params = new URLSearchParams();
+            if (this.currentFilter !== 'all') {
+                params.append('status', this.currentFilter);
+            }
+            if (this.currentDate) {
+                params.append('date', this.currentDate);
+            }
+
+            const response = await fetch(`/api/orders?${params.toString()}`);
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                this.ordersData = result.data;
+                this.renderOrders();
+            } else {
+                this.showError(result.message || 'Failed to load orders');
+            }
+        } catch (error) {
+            console.error('Error loading orders:', error);
+            this.showError('Failed to load orders. Please try again.');
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    renderOrders() {
+        const tbody = document.querySelector('#ordersTable tbody');
+        if (!tbody) return;
+
+        if (this.ordersData.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="text-center">No orders found</td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = this.ordersData.map(order => `
+            <tr>
+                <td>${order.order_id}</td>
+                <td>${order.symbol}</td>
+                <td>
+                    <span class="order-type ${order.transaction_type.toLowerCase()}">
+                        ${order.transaction_type}
+                    </span>
+                </td>
+                <td>${order.quantity}</td>
+                <td>${order.price}</td>
+                <td>
+                    <span class="status-badge ${order.status}">
+                        ${this.capitalizeFirst(order.status)}
+                    </span>
+                </td>
+                <td>${order.time}</td>
+                <td>
+                    ${this.renderActionButtons(order)}
+                </td>
+            </tr>
+        `).join('');
+
+        // Attach event listeners to action buttons
+        this.attachActionListeners();
+    }
+
+    renderActionButtons(order) {
+        if (order.status === 'pending') {
+            return `
+                <button class="action-btn view-btn" data-order-id="${order.order_id}" title="View Details">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn cancel-btn" data-order-id="${order.order_id}" title="Cancel Order">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+        } else {
+            return `
+                <button class="action-btn view-btn" data-order-id="${order.order_id}" title="View Details">
+                    <i class="fas fa-eye"></i>
+                </button>
+            `;
+        }
+    }
+
+    attachActionListeners() {
+        // View buttons
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const orderId = e.currentTarget.getAttribute('data-order-id');
+                this.viewOrderDetails(orderId);
+            });
+        });
+
+        // Cancel buttons
+        document.querySelectorAll('.cancel-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const orderId = e.currentTarget.getAttribute('data-order-id');
+                this.cancelOrder(orderId);
+            });
+        });
+    }
+
+    async viewOrderDetails(orderId) {
+        try {
+            const response = await fetch(`/api/orders/${orderId}`);
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                this.showOrderModal(result.data);
+            } else {
+                this.showError(result.message || 'Failed to load order details');
+            }
+        } catch (error) {
+            console.error('Error loading order details:', error);
+            this.showError('Failed to load order details');
+        }
+    }
+
+    showOrderModal(orderData) {
+        // Create modal HTML
+        const modalHtml = `
+            <div class="modal-overlay" id="orderModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Order Details</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-details">
+                            <div class="detail-row">
+                                <strong>Order ID:</strong> #ORD${orderData.order_id}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Symbol:</strong> ${orderData.tradingsymbol}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Exchange:</strong> ${orderData.exchange}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Transaction Type:</strong> ${orderData.transaction_type}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Order Type:</strong> ${orderData.order_type}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Quantity:</strong> ${orderData.quantity}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Price:</strong> ₹${parseFloat(orderData.price).toFixed(2)}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Average Price:</strong> ₹${parseFloat(orderData.average_price).toFixed(2)}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Filled Quantity:</strong> ${orderData.filled_quantity}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Pending Quantity:</strong> ${orderData.pending_quantity}
+                            </div>
+                            <div class="detail-row">
+                                <strong>Status:</strong> ${orderData.status}
+                            </div>
+                            ${orderData.status_message ? `
+                                <div class="detail-row">
+                                    <strong>Status Message:</strong> ${orderData.status_message}
+                                </div>
+                            ` : ''}
+                            <div class="detail-row">
+                                <strong>Order Time:</strong> ${orderData.order_timestamp}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Add modal to page
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        // Add event listener for close
+        const modal = document.getElementById('orderModal');
+        const closeBtn = modal.querySelector('.modal-close');
+        
+        closeBtn.addEventListener('click', () => {
+            modal.remove();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+
+    async cancelOrder(orderId) {
+        if (!confirm('Are you sure you want to cancel this order?')) {
+            return;
+        }
+
+        try {
+            // In a real application, you would make an API call to cancel the order
+            console.log('Cancelling order:', orderId);
+            this.showSuccess('Order cancellation request submitted');
+            
+            // Reload orders to reflect changes
+            this.loadOrders();
+        } catch (error) {
+            console.error('Error cancelling order:', error);
+            this.showError('Failed to cancel order');
+        }
+    }
+
+    showLoading() {
+        const tbody = document.querySelector('#ordersTable tbody');
+        if (tbody) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <i class="fas fa-spinner fa-spin"></i> Loading orders...
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    hideLoading() {
+        // Loading will be hidden when renderOrders is called
+    }
+
+    showError(message) {
+        this.showNotification(message, 'error');
+    }
+
+    showSuccess(message) {
+        this.showNotification(message, 'success');
+    }
+
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <span>${message}</span>
+            <button class="notification-close">&times;</button>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+
+        // Close button
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            notification.remove();
+        });
+    }
+
+    capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new OrderManager();
+});
+
+        // Add CSS animation for refresh button
+        const style = document.createElement("style")
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `
+        document.head.appendChild(style)
+
+        // Simulate real-time data updates
+        setInterval(() => {
+            // Update market data
+            const marketValues = document.querySelectorAll(".market-value")
+            marketValues.forEach((value) => {
+                const currentValue = Number.parseFloat(value.textContent.replace(/[₹,]/g, ""))
+                if (!isNaN(currentValue)) {
+                    const change = (Math.random() - 0.5) * 10
+                    const newValue = currentValue + change
+                    value.textContent = "₹" + newValue.toLocaleString("en-IN", { minimumFractionDigits: 2 })
+                }
+            })
+
+            // Update P&L values
+            const plValues = document.querySelectorAll(".positive, .negative")
+            plValues.forEach((value) => {
+                if (value.textContent.includes("₹")) {
+                    const currentValue = Number.parseFloat(value.textContent.replace(/[₹,+]/g, ""))
+                    if (!isNaN(currentValue)) {
+                        const change = (Math.random() - 0.5) * 100
+                        const newValue = currentValue + change
+                        const sign = newValue >= 0 ? "+" : ""
+                        value.textContent = sign + "₹" + Math.abs(newValue).toLocaleString("en-IN", { minimumFractionDigits: 2 })
+                        value.className = newValue >= 0 ? "positive" : "negative"
+                    }
+                }
+            })
+        }, 5000) // Update every 5 seconds
+</script>
 </body>
 </html>
