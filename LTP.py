@@ -2,7 +2,7 @@ import asyncio
 import websockets
 
 async def connect_to_server():
-    async with websockets.connect('wss://wss1.mtsp.co.in:15208') as websocket:
+    async with websockets.connect('wss1.mtsp.co.in:15207') as websocket:
         response = await websocket.recv()
         if "HandShake" in response:
           

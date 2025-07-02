@@ -967,6 +967,59 @@ body {
 .modal-body::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
+.order-modal-overlay {
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-modal-content {
+    background: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-modal-content .modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-modal-content .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.order-modal-content .modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@keyframes modalSlideIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 </style>
 </head>
@@ -1117,21 +1170,22 @@ body {
                             <div class="form-group">
                                 <label class="form-label">Exchange</label>
                                 <select class="form-select" name="exchange" required>
-                                    <option value="">Select Exchange</option>
-                                    <option value="NSE">NSE</option>
-                                    <option value="BSE">BSE</option>
-                                    <option value="MCX">MCX</option>
-                                </select>
+    <option value="">Select Exchange</option>
+    <option value="NSECM">NSECM</option>
+    <option value="NSESLBM">NSESLBM</option>
+    <option value="BSECM">BSECM</option>
+    <option value="MCX">MCX</option>
+</select>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label">Instrument Type</label>
                                 <select class="form-select" name="instrument" required>
-                                    <option value="">Select Instrument</option>
-                                    <option value="EQ">Equity</option>
-                                    <option value="FUT">Futures</option>
-                                    <option value="OPT">Options</option>
-                                </select>
+    <option value="">Select Instrument</option>
+    <option value="EQ">Equity</option>
+    <option value="FUT">Futures</option>
+    <option value="OPT">Options</option>
+</select>
                             </div>
                             
                             <div class="form-group">
@@ -1177,22 +1231,22 @@ body {
                             <div class="form-group">
                                 <label class="form-label">Product</label>
                                 <select class="form-select" name="product" required>
-                                    <option value="">Select Product</option>
-                                    <option value="CNC">CNC</option>
-                                    <option value="MIS">MIS</option>
-                                    <option value="NRML">NRML</option>
-                                </select>
+    <option value="">Select Product</option>
+    <option value="CNC">CNC</option>
+    <option value="MIS">MIS</option>
+    <option value="NRML">NRML</option>
+</select>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label">Order Type</label>
                                 <select class="form-select" name="orderType" required>
-                                    <option value="">Select Order Type</option>
-                                    <option value="MARKET">Market</option>
-                                    <option value="LIMIT">Limit</option>
-                                    <option value="SL">Stop Loss</option>
-                                    <option value="SL-M">Stop Loss Market</option>
-                                </select>
+    <option value="">Select Order Type</option>
+    <option value="MARKET">Market</option>
+    <option value="LIMIT">Limit</option>
+    <option value="SL">Stop Loss</option>
+    <option value="SL-M">Stop Loss Market</option>
+</select>
                             </div>
                             
                             <div class="form-group">
@@ -1213,10 +1267,10 @@ body {
                             <div class="form-group">
                                 <label class="form-label">Validity</label>
                                 <select class="form-select" name="validity" required>
-                                    <option value="DAY">Day</option>
-                                    <option value="IOC">IOC</option>
-                                    <option value="GTT">GTT</option>
-                                </select>
+    <option value="DAY">Day</option>
+    <option value="IOC">IOC</option>
+    <option value="GTT">GTT</option>
+</select>
                             </div>
                         </div>
                         
@@ -1726,38 +1780,36 @@ body {
             const orderForm = document.getElementById("orderForm")
             const resetButton = document.getElementById("resetForm")
 
-            if (orderForm) {
-                orderForm.addEventListener("submit", function (e) {
-                    e.preventDefault()
+            document.getElementById("orderForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-                    // Get form data
-                    const formData = new FormData(this)
-                    const orderData = {}
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = {};
 
-                    for (const [key, value] of formData.entries()) {
-                        orderData[key] = value
-                    }
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
 
-                    // Simulate order placement
-                    showNotification("Order placed successfully!", "success")
+    fetch("/place-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log("Order Placed:", result);
+        alert("Order Placed Successfully. Check console for details.");
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to place order.");
+    });
+});
 
-                    // Add order to table (simulation)
-                    addOrderToTable(orderData)
-
-                    // Reset form
-                    this.reset()
-
-                    // Switch to order status view
-                    setTimeout(() => {
-                        navLinks.forEach((l) => l.classList.remove("active"))
-                        contentSections.forEach((section) => section.classList.remove("active"))
-                        const orderSection = document.getElementById("order-status");
-                        const orderNavLink = document.querySelector('[data-section="order-status"]');
-                        if (orderSection) orderSection.classList.add("active")
-                        if (orderNavLink) orderNavLink.classList.add("active")
-                    }, 1500)
-                })
-            }
+document.getElementById("resetForm").addEventListener("click", function() {
+    document.getElementById("orderForm").reset();
+});
 
             if (resetButton) {
                 resetButton.addEventListener("click", () => {
@@ -1888,7 +1940,7 @@ body {
 
         // Order Management JavaScript
 class OrderManager {
-    constructor() {
+     constructor() {
         this.ordersData = [];
         this.currentFilter = 'all';
         this.currentDate = '';
@@ -1901,7 +1953,6 @@ class OrderManager {
     }
 
     setupEventListeners() {
-        // Filter dropdown
         const filterSelect = document.querySelector('.filter-select');
         if (filterSelect) {
             filterSelect.addEventListener('change', (e) => {
@@ -1910,7 +1961,6 @@ class OrderManager {
             });
         }
 
-        // Date filter
         const filterDate = document.querySelector('.filter-date');
         if (filterDate) {
             filterDate.addEventListener('change', (e) => {
@@ -1919,7 +1969,6 @@ class OrderManager {
             });
         }
 
-        // Refresh button
         const refreshBtn = document.querySelector('.btn.btn-secondary');
         if (refreshBtn) {
             refreshBtn.addEventListener('click', () => {
@@ -1931,8 +1980,7 @@ class OrderManager {
     async loadOrders() {
         try {
             this.showLoading();
-            
-            // Build query parameters
+
             const params = new URLSearchParams();
             if (this.currentFilter !== 'all') {
                 params.append('status', this.currentFilter);
@@ -1971,46 +2019,48 @@ class OrderManager {
             return;
         }
 
-        tbody.innerHTML = this.ordersData.map(order => `
-            <tr>
-                <td>${order.order_id}</td>
-                <td>${order.symbol}</td>
-                <td>
-                    <span class="order-type ${order.transaction_type.toLowerCase()}">
-                        ${order.transaction_type}
-                    </span>
-                </td>
-                <td>${order.quantity}</td>
-                <td>${order.price}</td>
-                <td>
-                    <span class="status-badge ${order.status}">
-                        ${this.capitalizeFirst(order.status)}
-                    </span>
-                </td>
-                <td>${order.time}</td>
-                <td>
-                    ${this.renderActionButtons(order)}
-                </td>
-            </tr>
-        `).join('');
+        tbody.innerHTML = this.ordersData.map(order => {
+            const cleanOrderId = order.order_id.replace("#ORD", ""); // always send integer only
+            return `
+                <tr>
+                    <td>#ORD${cleanOrderId}</td>
+                    <td>${order.symbol}</td>
+                    <td>
+                        <span class="order-type ${order.transaction_type.toLowerCase()}">
+                            ${order.transaction_type}
+                        </span>
+                    </td>
+                    <td>${order.quantity}</td>
+                    <td>${order.price}</td>
+                    <td>
+                        <span class="status-badge ${order.status.toLowerCase()}">
+                            ${this.capitalizeFirst(order.status)}
+                        </span>
+                    </td>
+                    <td>${order.time}</td>
+                    <td>
+                        ${this.renderActionButtons(order, cleanOrderId)}
+                    </td>
+                </tr>
+            `;
+        }).join('');
 
-        // Attach event listeners to action buttons
         this.attachActionListeners();
     }
 
-    renderActionButtons(order) {
-        if (order.status === 'pending') {
+    renderActionButtons(order, cleanOrderId) {
+        if (order.status.toLowerCase() === 'pending') {
             return `
-                <button class="action-btn view-btn" data-order-id="${order.order_id}" title="View Details">
+                <button class="action-btn view-btn" data-order-id="${cleanOrderId}" title="View Details">
                     <i class="fas fa-eye"></i>
                 </button>
-                <button class="action-btn cancel-btn" data-order-id="${order.order_id}" title="Cancel Order">
+                <button class="action-btn cancel-btn" data-order-id="${cleanOrderId}" title="Cancel Order">
                     <i class="fas fa-times"></i>
                 </button>
             `;
         } else {
             return `
-                <button class="action-btn view-btn" data-order-id="${order.order_id}" title="View Details">
+                <button class="action-btn view-btn" data-order-id="${cleanOrderId}" title="View Details">
                     <i class="fas fa-eye"></i>
                 </button>
             `;
@@ -2018,7 +2068,6 @@ class OrderManager {
     }
 
     attachActionListeners() {
-        // View buttons
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const orderId = e.currentTarget.getAttribute('data-order-id');
@@ -2026,7 +2075,6 @@ class OrderManager {
             });
         });
 
-        // Cancel buttons
         document.querySelectorAll('.cancel-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const orderId = e.currentTarget.getAttribute('data-order-id');
@@ -2051,99 +2099,70 @@ class OrderManager {
         }
     }
 
-    showOrderModal(orderData) {
-        // Create modal HTML
-        const modalHtml = `
-            <div class="modal-overlay" id="orderModal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Order Details</h3>
-                        <button class="modal-close">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="order-details">
-                            <div class="detail-row">
-                                <strong>Order ID:</strong> #ORD${orderData.order_id}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Symbol:</strong> ${orderData.tradingsymbol}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Exchange:</strong> ${orderData.exchange}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Transaction Type:</strong> ${orderData.transaction_type}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Order Type:</strong> ${orderData.order_type}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Quantity:</strong> ${orderData.quantity}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Price:</strong> ₹${parseFloat(orderData.price).toFixed(2)}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Average Price:</strong> ₹${parseFloat(orderData.average_price).toFixed(2)}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Filled Quantity:</strong> ${orderData.filled_quantity}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Pending Quantity:</strong> ${orderData.pending_quantity}
-                            </div>
-                            <div class="detail-row">
-                                <strong>Status:</strong> ${orderData.status}
-                            </div>
-                            ${orderData.status_message ? `
-                                <div class="detail-row">
-                                    <strong>Status Message:</strong> ${orderData.status_message}
-                                </div>
-                            ` : ''}
-                            <div class="detail-row">
-                                <strong>Order Time:</strong> ${orderData.order_timestamp}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Add modal to page
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-        // Add event listener for close
-        const modal = document.getElementById('orderModal');
-        const closeBtn = modal.querySelector('.modal-close');
-        
-        closeBtn.addEventListener('click', () => {
-            modal.remove();
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-    }
-
     async cancelOrder(orderId) {
         if (!confirm('Are you sure you want to cancel this order?')) {
             return;
         }
 
         try {
-            // In a real application, you would make an API call to cancel the order
-            console.log('Cancelling order:', orderId);
-            this.showSuccess('Order cancellation request submitted');
-            
-            // Reload orders to reflect changes
+            const response = await fetch(`/api/cancel-order/${orderId}`, {
+                method: 'DELETE'
+            });
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                this.showSuccess('Order cancelled successfully');
+            } else {
+                this.showError(result.message || 'Failed to cancel order');
+            }
+
             this.loadOrders();
         } catch (error) {
             console.error('Error cancelling order:', error);
             this.showError('Failed to cancel order');
         }
     }
+
+    showOrderModal(orderData) {
+        const modalHtml = `
+            <div class="order-modal-overlay" id="orderModal">
+                <div class="order-modal-content">
+                    <div class="modal-header">
+                        <h3>Order Details</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="order-details">
+                            <div class="detail-row"><strong>Order ID:</strong> #ORD${orderData.order_id}</div>
+                            <div class="detail-row"><strong>Symbol:</strong> ${orderData.tradingsymbol}</div>
+                            <div class="detail-row"><strong>Exchange:</strong> ${orderData.exchange}</div>
+                            <div class="detail-row"><strong>Transaction Type:</strong> ${orderData.transaction_type}</div>
+                            <div class="detail-row"><strong>Order Type:</strong> ${orderData.order_type}</div>
+                            <div class="detail-row"><strong>Quantity:</strong> ${orderData.quantity}</div>
+                            <div class="detail-row"><strong>Price:</strong> ₹${parseFloat(orderData.price).toFixed(2)}</div>
+                            <div class="detail-row"><strong>Average Price:</strong> ₹${parseFloat(orderData.average_price).toFixed(2)}</div>
+                            <div class="detail-row"><strong>Filled Quantity:</strong> ${orderData.filled_quantity}</div>
+                            <div class="detail-row"><strong>Pending Quantity:</strong> ${orderData.pending_quantity}</div>
+                            <div class="detail-row"><strong>Status:</strong> ${orderData.status}</div>
+                            ${orderData.status_message ? `<div class="detail-row"><strong>Status Message:</strong> ${orderData.status_message}</div>` : ''}
+                            <div class="detail-row"><strong>Order Time:</strong> ${orderData.order_timestamp}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        const modal = document.getElementById('orderModal');
+        const closeBtn = modal.querySelector('.modal-close');
+        
+        closeBtn.addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+    }
+
 
     showLoading() {
         const tbody = document.querySelector('#ordersTable tbody');
@@ -2241,6 +2260,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
         }, 5000) // Update every 5 seconds
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadDashboardData();
+});
+
+async function loadDashboardData() {
+    try {
+        const response = await fetch("/api/dashboard");
+        const result = await response.json();
+
+        if (result.status === "success") {
+            // Update hero stats
+            document.querySelector(".hero-stats .stat-card:nth-child(1) .stat-value").textContent = `₹${result.portfolio_value.toLocaleString()}`;
+            document.querySelector(".hero-stats .stat-card:nth-child(2) .stat-value").textContent = result.active_positions;
+            document.querySelector(".hero-stats .stat-card:nth-child(3) .stat-value").textContent = `₹${result.todays_pnl.toLocaleString()}`;
+
+            // Update recent orders
+            const ordersContainer = document.querySelector(".dashboard-card .card-content");
+            ordersContainer.innerHTML = result.recent_orders.map(order => `
+                <div class="order-item">
+                    <div class="order-symbol">${order.symbol}</div>
+                    <div class="order-details">
+                        <span class="order-type ${order.transaction_type.toLowerCase()}">${order.transaction_type}</span>
+                        <span class="order-qty">${order.quantity} qty</span>
+                    </div>
+                    <div class="order-status ${order.status.toLowerCase()}">${order.status}</div>
+                </div>
+            `).join('');
+        }
+    } catch (error) {
+        console.error("Failed to load dashboard data:", error);
+    }
+}
 </script>
 </body>
 </html>
