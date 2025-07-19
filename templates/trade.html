@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trade2Algo - Live Trading Platform</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        /* --- Consistent styling with home.html --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+            background: #f7f8fa;
+            margin: 0;
+            color: #212a3a;
+        }
+        .navbar {
+            background: #fff;
+            border-bottom: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1d29;
+        }
+        .logo i { color: #4a90e2; font-size: 26px; }
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+        }
+        .nav-tab {
+            padding: 10px 18px;
+            border: none;
+            background: none;
+            color: #6c757d;
+            font-weight: 500;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-tab.active, .nav-tab:hover {
+            background: #f8f9fa;
+            color: #1a1d29;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 32px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(20,25,55,0.06);
+            padding: 32px 24px;
+        }
+        .tab-section { display: none; }
+        .tab-section.active { display: block; }
+        .section-header {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #e5e8ec;
+            padding-bottom: 6px;
+        }
+        /* Table styles */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 18px;}
+        th, td {
+            border: 1px solid #e5e8ec;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #f9fafc;
+            font-weight: 600;
+        }
+        .positive { color: #28a745; }
+        .negative { color: #dc3545; }
+        .order-buy { color: #009475; }
+        .order-sell { color: #e94b4b; }
+        .order-complete { background: #e2f7e6; color: #1d9937; padding: 2px 8px; border-radius: 3px;}
+        .order-pending { background: #fbe1a5; color: #ad7c06; padding: 2px 8px; border-radius: 3px;}
+        .order-rejected { background: #fde2e2; color: #b63434; padding: 2px 8px; border-radius: 3px;}
+        /* Chart */
+        #ohlcChart {
+            margin: 36px auto 28px auto;
+            width: 97%;
+            max-width: 670px;
+            height: 380px;
+            border: 1px solid #e5e8ec;
+            background: #f7f8fa;
+            border-radius: 7px;
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            .main-content { padding: 10px; }
+            .nav-container { padding: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                Trade2Algo
+            </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="orderbook"><i class="fas fa-stream"></i> Order Book</button>
+                <button class="nav-tab" data-tab="marketwatch"><i class="fas fa-eye"></i> Market Watch</button>
+                <button class="nav-tab" data-tab="ohlc"><i class="fas fa-chart-bar"></i> OHLC Chart</button>
+                <button class="nav-tab" data-tab="auction"><i class="fas fa-gavel"></i> Auction Depth</button>
+                <button class="nav-tab" data-tab="positions"><i class="fas fa-chart-pie"></i> Positions</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Order Book Tab -->
+        <section id="tab-orderbook" class="tab-section active">
+            <div class="section-header">Order Book Depth (Broadcast)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bid Price</th>
+                        <th>Bid Qty</th>
+                        <th>Ask Price</th>
+                        <th>Ask Qty</th>
+                    </tr>
+                </thead>
+                <tbody id="orderBookDepth"></tbody>
+            </table>
+            <div id="orderBookStats"></div>
+        </section>
+
+        <!-- Market Watch Tab -->
+        <section id="tab-marketwatch" class="tab-section">
+            <div class="section-header">Market Watch (Watch)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th><th>LTP</th>
+                        <th>Best Bid</th><th>Best Ask</th>
+                        <th>VWAP</th><th>Volume</th>
+                    </tr>
+                </thead>
+                <tbody id="marketWatchTable"></tbody>
+            </table>
+        </section>
+
+        <!-- OHLC Chart Tab -->
+        <section id="tab-ohlc" class="tab-section">
+            <div class="section-header">Price &amp; OHLC (OHLCL)</div>
+            <div id="ohlcChart"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Open</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Close</th>
+                        <th>LTP</th>
+                    </tr>
+                </thead>
+                <tbody id="ohlcTable"></tbody>
+            </table>
+        </section>
+
+        <!-- Auction Depth Tab -->
+        <section id="tab-auction" class="tab-section">
+            <div class="section-header">Auction Market Depth (Auction)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Auction Bid Price</th><th>Bid Qty</th>
+                        <th>Auction Ask Price</th><th>Ask Qty</th>
+                        <th>DPR</th>
+                    </tr>
+                </thead>
+                <tbody id="auctionTable"></tbody>
+            </table>
+        </section>
+
+        <!-- Positions Tab -->
+        <section id="tab-positions" class="tab-section">
+            <div class="section-header">Positions</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Quantity</th>
+                        <th>Avg Price</th>
+                        <th>LTP</th>
+                        <th>P&L</th>
+                        <th>Day P&L</th>
+                    </tr>
+                </thead>
+                <tbody id="positionsTable"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+    // --- Tab Toggle Logic ---
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+        });
+    });
+
+    // --- Dummy Data Population for All Tabs ---
+
+    // Order Book Dummy Data
+    document.getElementById('orderBookDepth').innerHTML = `
+        <tr>
+            <td>₹2,485.00</td><td>120</td>
+            <td>₹2,486.00</td><td>90</td>
+        </tr>
+        <tr>
+            <td>₹2,484.50</td><td>80</td>
+            <td>₹2,486.50</td><td>60</td>
+        </tr>
+        <tr>
+            <td>₹2,484.00</td><td>60</td>
+            <td>₹2,487.00</td><td>40</td>
+        </tr>
+        <tr>
+            <td>₹2,483.50</td><td>40</td>
+            <td>₹2,487.50</td><td>20</td>
+        </tr>
+        <tr>
+            <td>₹2,483.00</td><td>20</td>
+            <td>₹2,488.00</td><td>10</td>
+        </tr>
+    `;
+    document.getElementById('orderBookStats').innerHTML = `
+        <b>LTP:</b> ₹2,485.50 &nbsp; <b>VWAP:</b> ₹2,485.10
+        &nbsp; <b>O:</b> 2,470.00 &nbsp; <b>H:</b> 2,490.00 &nbsp;
+        <b>L:</b> 2,468.00 &nbsp; <b>C:</b> 2,485.50
+        <br>
+        <b>Total Buy Qty:</b> 320 &nbsp; <b>Total Sell Qty:</b> 220
+        &nbsp; <b>Total Vol:</b> 540
+    `;
+
+    // Market Watch Dummy Data
+    document.getElementById('marketWatchTable').innerHTML = `
+        <tr>
+            <td>RELIANCE</td>
+            <td>₹2,485.50</td>
+            <td>₹2,485.00 / 120</td>
+            <td>₹2,486.00 / 90</td>
+            <td>₹2,485.10</td>
+            <td>1,200,000</td>
+        </tr>
+        <tr>
+            <td>TCS</td>
+            <td>₹3,720.25</td>
+            <td>₹3,720.00 / 60</td>
+            <td>₹3,721.00 / 40</td>
+            <td>₹3,719.80</td>
+            <td>800,000</td>
+        </tr>
+    `;
+
+    // OHLC Dummy Data
+    document.getElementById('ohlcTable').innerHTML = `
+        <tr>
+            <td>RELIANCE</td>
+            <td>₹2,470.00</td>
+            <td>₹2,490.00</td>
+            <td>₹2,468.00</td>
+            <td>₹2,485.50</td>
+            <td>₹2,485.50</td>
+        </tr>
+    `;
+    Plotly.newPlot('ohlcChart', [{
+        x: ['2024-07-19'],
+        open: [2470.00],
+        high: [2490.00],
+        low: [2468.00],
+        close: [2485.50],
+        type: 'candlestick',
+        increasing: { line: { color: '#28a745' } },
+        decreasing: { line: { color: '#dc3545' } },
+        showlegend: false
+    }], {
+        title: `OHLC Chart – RELIANCE`,
+        yaxis: { title: 'Price (INR)' },
+        xaxis: { title: 'Date', showgrid: false },
+        margin: { t: 40, l: 60, r: 30, b: 40 }
+    }, {displayModeBar: false});
+
+    // Auction Depth Dummy Data
+    document.getElementById('auctionTable').innerHTML = `
+        <tr>
+            <td>₹2,484.00</td><td>50</td>
+            <td>₹2,486.00</td><td>30</td>
+            <td>5%</td>
+        </tr>
+        <tr>
+            <td>₹2,483.50</td><td>30</td>
+            <td>₹2,486.50</td><td>20</td>
+            <td>5%</td>
+        </tr>
+    `;
+
+    // Positions Dummy Data
+    document.getElementById('positionsTable').innerHTML = `
+        <tr>
+            <td>RELIANCE</td><td>100</td><td>₹2,450.00</td>
+            <td>₹2,485.50</td>
+            <td class="positive">+₹3,550.00</td>
+            <td class="positive">+₹850.00</td>
+        </tr>
+        <tr>
+            <td>TCS</td><td>75</td><td>₹3,680.00</td>
+            <td>₹3,720.25</td>
+            <td class="positive">+₹3,018.75</td>
+            <td class="positive">+₹400.00</td>
+        </tr>
+    `;
+    </script>
+</body>
+</html>

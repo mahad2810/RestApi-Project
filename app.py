@@ -325,7 +325,8 @@ def get_dashboard_data():
             for order in recent_orders
         ]
     })
-
-
+@app.route('/trade')
+def trade():
+    return render_template('trade.html')  # or return some response
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

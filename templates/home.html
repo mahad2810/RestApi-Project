@@ -1056,7 +1056,13 @@ body {
                     <i class="fas fa-chart-pie"></i>
                     Positions
                 </a>
-            </nav>
+                <!-- Trade Platform Button -->
+    <a href="/trade" class="trade-link" style="background:#4a90e2;color:#fff;">
+    <i class="fas fa-bolt"></i>
+    Live Trade
+</a>
+
+</nav>
             
             <div class="nav-actions">
                 <button class="nav-btn settings-btn">
@@ -1725,29 +1731,33 @@ body {
 
             // Navigation link handling
             const navLinks = document.querySelectorAll(".nav-link")
+            const tradeLink = document.querySelector(".trade-link");
             const contentSections = document.querySelectorAll(".content-section")
 
-            navLinks.forEach((link) => {
-                link.addEventListener("click", function (e) {
-                    e.preventDefault()
+            // Tab functionality for nav links (excluding trade)
+navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+        const section = this.getAttribute("data-section");
+        if (!section) return;
 
-                    // Remove active class from all links
-                    navLinks.forEach((l) => l.classList.remove("active"))
+        e.preventDefault();
 
-                    // Add active class to clicked link
-                    this.classList.add("active")
+        navLinks.forEach((l) => l.classList.remove("active"));
+        this.classList.add("active");
 
-                    // Hide all content sections
-                    contentSections.forEach((section) => section.classList.remove("active"))
+        contentSections.forEach((section) => section.classList.remove("active"));
+        const sectionElem = document.getElementById(section);
+        if (sectionElem) sectionElem.classList.add("active");
+    });
+});
 
-                    // Show target section
-                    const targetSection = this.getAttribute("data-section")
-                    const section = document.getElementById(targetSection);
-                    if (section) {
-                        section.classList.add("active")
-                    }
-                })
-            })
+// Separate redirect for trade link
+if (tradeLink) {
+    tradeLink.addEventListener("click", function (e) {
+        // Let browser handle navigation to /trade
+        // Optionally, you could use: window.location.href = "/trade";
+    });
+}
 
             // Action button handling
             const actionButtons = document.querySelectorAll("[data-action]")
@@ -2232,34 +2242,34 @@ document.addEventListener('DOMContentLoaded', () => {
         `
         document.head.appendChild(style)
 
-        // Simulate real-time data updates
         setInterval(() => {
-            // Update market data
-            const marketValues = document.querySelectorAll(".market-value")
-            marketValues.forEach((value) => {
-                const currentValue = Number.parseFloat(value.textContent.replace(/[₹,]/g, ""))
-                if (!isNaN(currentValue)) {
-                    const change = (Math.random() - 0.5) * 10
-                    const newValue = currentValue + change
-                    value.textContent = "₹" + newValue.toLocaleString("en-IN", { minimumFractionDigits: 2 })
-                }
-            })
+    // Update market data
+    const marketValues = document.querySelectorAll(".market-value");
+    marketValues.forEach((value) => {
+        // Simulate a new value for demonstration
+        const currentValue = Number(value.textContent.replace(/[₹,]/g, ""));
+        if (!isNaN(currentValue)) {
+            const change = (Math.random() - 0.5) * 100;
+            const newValue = currentValue + change;
+            value.textContent = "₹" + newValue.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+        }
+    });
 
-            // Update P&L values
-            const plValues = document.querySelectorAll(".positive, .negative")
-            plValues.forEach((value) => {
-                if (value.textContent.includes("₹")) {
-                    const currentValue = Number.parseFloat(value.textContent.replace(/[₹,+]/g, ""))
-                    if (!isNaN(currentValue)) {
-                        const change = (Math.random() - 0.5) * 100
-                        const newValue = currentValue + change
-                        const sign = newValue >= 0 ? "+" : ""
-                        value.textContent = sign + "₹" + Math.abs(newValue).toLocaleString("en-IN", { minimumFractionDigits: 2 })
-                        value.className = newValue >= 0 ? "positive" : "negative"
-                    }
-                }
-            })
-        }, 5000) // Update every 5 seconds
+    // Update P&L values
+    const plValues = document.querySelectorAll(".positive, .negative");
+    plValues.forEach((value) => {
+        if (value.textContent.includes("₹")) {
+            const currentValue = Number.parseFloat(value.textContent.replace(/[₹,+]/g, ""));
+            if (!isNaN(currentValue)) {
+                const change = (Math.random() - 0.5) * 100;
+                const newValue = currentValue + change;
+                const sign = newValue >= 0 ? "+" : "";
+                value.textContent = sign + "₹" + Math.abs(newValue).toLocaleString("en-IN", { minimumFractionDigits: 2 });
+                value.className = newValue >= 0 ? "positive" : "negative";
+            }
+        }
+    });
+}, 5000); // Update every 5 seconds
 
 
 document.addEventListener("DOMContentLoaded", () => {
