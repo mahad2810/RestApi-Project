@@ -2,26 +2,43 @@ import asyncio
 import websockets
 import json
 
-async def connect_to_server():
-    async with websockets.connect('wss://wss1.multitrade.tech:15208') as websocket:
-        response = await websocket.recv()
-        if "HandShake" in response:
+async def get_vwap_updates(limit=5):
+    uri = 'wss://wss1.multitrade.tech:15208'
+    vwap_updates = []
+    OldVWAP = -1
 
-            sc = "{\"Message\":\"Broadcast\",\"EXC\":\"NSECM\",\"SECID\":\"3045\"}"
-            await websocket.send(sc)
-
-        OldVWAP = -1
-        while True:
+    try:
+        async with websockets.connect(uri) as websocket:
+            # Wait for handshake
             response = await websocket.recv()
-            if "\"Broadcast\"" in response:
-                response_string = response
-                responses = response_string.strip().split("\n\n")
+            if "HandShake" in response:
+                # Send Broadcast message
+                sc = {
+                    "Message": "Broadcast",
+                    "EXC": "NSECM",
+                    "SECID": "3045"
+                }
+                await websocket.send(json.dumps(sc))
 
-            for res in responses:
-                data = json.loads(res)
-                if "LTP" in data:
-                    if (OldVWAP != data["VWAP"] ):
-                      OldVWAP = data["VWAP"]
-                      print("VWAP:", data["VWAP"])
+                # Continuously receive data
+                while len(vwap_updates) < limit:
+                    response = await websocket.recv()
+                    
+                    if "\"Broadcast\"" in response:
+                        responses = response.strip().split("\n\n")
 
-asyncio.run(connect_to_server())
+                        for res in responses:
+                            data = json.loads(res)
+
+                            if "LTP" in data and "VWAP" in data:
+                                if data["VWAP"] != OldVWAP:
+                                    OldVWAP = data["VWAP"]
+                                    vwap_updates.append(data)
+
+            else:
+                return {"error": "Handshake failed"}
+
+    except Exception as e:
+        return {"error": str(e)}
+
+    return vwap_updates

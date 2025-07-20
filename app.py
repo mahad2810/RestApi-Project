@@ -3,6 +3,7 @@ import json
 import os
 from auth import main as auth_main
 from datetime import datetime
+import asyncio
 
 app = Flask(__name__)
 
@@ -325,8 +326,56 @@ def get_dashboard_data():
             for order in recent_orders
         ]
     })
+
+
 @app.route('/trade')
 def trade():
     return render_template('trade.html')  # or return some response
+
+
+
+from watch import get_watch_data
+from broadcast import get_market_data
+from broadcastlive import get_vwap_updates
+from LTP import get_ltp_updates
+from OHCL import get_ohlcl_data
+
+@app.route('/api/watch', methods=['GET'])
+def api_watch():
+    exc = request.args.get('exc', 'NSEFO')
+    secid = request.args.get('secid', '71441')
+    limit = int(request.args.get('limit', 5))
+    data = asyncio.run(get_watch_data(exc, secid, limit))
+    return jsonify(data)
+
+@app.route('/api/broadcast', methods=['GET'])
+def api_broadcast():
+    data = asyncio.run(get_market_data())
+    return jsonify(data)
+
+@app.route('/api/broadcastlive', methods=['GET'])
+def api_broadcastlive():
+    limit = int(request.args.get('limit', 5))
+    data = asyncio.run(get_vwap_updates(limit))
+    return jsonify(data)
+
+@app.route('/api/ltp', methods=['GET'])
+def api_ltp():
+    exc = request.args.get('exc', 'NSEFO')
+    secid = request.args.get('secid', '35020')
+    limit = int(request.args.get('limit', 5))
+    data = asyncio.run(get_ltp_updates(exc, secid, limit))
+    return jsonify(data)
+
+@app.route('/api/ohlcl', methods=['GET'])
+def api_ohlcl():
+    exc = request.args.get('exc', 'NSEFO')
+    secid = request.args.get('secid', '35707')
+    limit = int(request.args.get('limit', 3))
+    data = asyncio.run(get_ohlcl_data(exc, secid, limit))
+    return jsonify(data)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

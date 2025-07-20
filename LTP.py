@@ -2,45 +2,41 @@ import asyncio
 import websockets
 import json
 
-async def connect_to_server():
+async def get_ltp_updates(exc="NSEFO", secid="35020", limit=5):
     uri = 'wss://wss1.multitrade.tech:15208'
+    ltp_data_list = []
 
     try:
         async with websockets.connect(uri) as websocket:
-            print("Connected to WebSocket")
-
             try:
+                # Wait for handshake (5-second timeout)
                 response = await asyncio.wait_for(websocket.recv(), timeout=5)
-                print("Handshake received:", response)
 
                 if "HandShake" in response:
                     # Send LTP request
                     ltp_request = json.dumps({
                         "Message": "LTP",
-                        "EXC": "NSEFO",
-                        "SECID": "35020"
+                        "EXC": exc,
+                        "SECID": secid
                     })
                     await websocket.send(ltp_request)
-                    print("LTP request sent.")
 
-                    while True:
+                    while len(ltp_data_list) < limit:
                         data = await websocket.recv()
+
                         if "\"LTP\"" in data:
-                            print("LTP Data:", data)
+                            parsed = json.loads(data)
+                            ltp_data_list.append(parsed)
                         else:
-                            print("Other Message:", data)
+                            continue  # Skip non-LTP messages
 
                 else:
-                    print("Unexpected handshake message")
+                    return {"error": "Unexpected handshake message"}
 
             except asyncio.TimeoutError:
-                print("Handshake timed out. Server didn't respond.")
+                return {"error": "Handshake timed out. Server didn't respond."}
 
     except Exception as e:
-        print("WebSocket error:", str(e))
+        return {"error": f"WebSocket error: {str(e)}"}
 
-# Run the event loop
-try:
-    asyncio.run(connect_to_server())
-except KeyboardInterrupt:
-    print("\nDisconnected by user")
+    return ltp_data_list
