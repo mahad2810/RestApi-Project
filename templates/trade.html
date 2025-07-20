@@ -337,6 +337,55 @@
             <td class="positive">+₹400.00</td>
         </tr>
     `;
+
+    // Function to render order book from API data
+function renderOrderBook(data) {
+        // Render depth table
+        const bids = data.B || [];
+        const asks = data.A || [];
+        const maxRows = Math.max(bids.length, asks.length);
+        let rows = '';
+        for (let i = 0; i < maxRows; i++) {
+            const bid = bids[i] || {};
+            const ask = asks[i] || {};
+            rows += `
+                <tr>
+                    <td>${bid.P ? '₹' + Number(bid.P).toFixed(2) : ''}</td>
+                    <td>${bid.Q || ''}</td>
+                    <td>${ask.P ? '₹' + Number(ask.P).toFixed(2) : ''}</td>
+                    <td>${ask.Q || ''}</td>
+                </tr>
+            `;
+        }
+        document.getElementById('orderBookDepth').innerHTML = rows;
+
+        // Render stats
+        document.getElementById('orderBookStats').innerHTML = `
+            <b>LTP:</b> ₹${data.LTP} &nbsp; <b>VWAP:</b> ₹${data.VWAP}
+            &nbsp; <b>O:</b> ${data.O} &nbsp; <b>H:</b> ${data.H} &nbsp;
+            <b>L:</b> ${data.L} &nbsp; <b>C:</b> ${data.C}
+            <br>
+            <b>Total Buy Qty:</b> ${data.TBQTY} &nbsp; <b>Total Sell Qty:</b> ${data.TSQTY}
+            &nbsp; <b>Total Vol:</b> ${data.TQT}
+        `;
+    }
+
+    // Fetch and update order book from backend API
+    async function fetchOrderBook() {
+        try {
+            const res = await fetch('/api/broadcast');
+            const data = await res.json();
+            if (data && data.Message === "Broadcast") {
+                renderOrderBook(data);
+            }
+        } catch (err) {
+            document.getElementById('orderBookStats').innerText = "Failed to load order book.";
+        }
+    }
+
+    // Initial fetch and periodic refresh every 5 seconds
+    fetchOrderBook();
+    setInterval(fetchOrderBook, 5000);
     </script>
 </body>
 </html>

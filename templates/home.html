@@ -1020,7 +1020,86 @@ body {
     from { opacity: 0; transform: translateY(-50px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
+.live-trade-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #4a90e2 60%, #28a745 100%);
+  color: #fff !important;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 12px 20px;
+  box-shadow: 0 2px 8px rgba(74,144,226,0.10);
+  position: relative;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  border: none;
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+.live-trade-btn:hover, .live-trade-btn:focus {
+  background: linear-gradient(90deg, #357abd 60%, #218838 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(74,144,226,0.18);
+  text-decoration: none;
+}
+.live-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #ff1744;
+  border-radius: 50%;
+  margin-right: 4px;
+  box-shadow: 0 0 8px 2px #ff1744;
+  animation: live-blink 1s infinite alternate;
+}
+@keyframes live-blink {
+  0% { opacity: 1; box-shadow: 0 0 8px 2px #ff1744; }
+  100% { opacity: 0.5; box-shadow: 0 0 2px 0 #ff1744; }
+}
+.live-text {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+/* Add to your <style> block (after .nav-btn styles): */
+.login-btn {
+  background: linear-gradient(90deg, #764ba2 0%, #4a90e2 100%);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(74,144,226,0.10);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  outline: none;
+}
+.login-btn:hover, .login-btn:focus {
+  background: linear-gradient(90deg, #4a90e2 0%, #764ba2 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(74,144,226,0.18);
+}
+.loading-spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #fff;
+  border-top: 3px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
 </style>
 </head>
 <body>
@@ -1056,10 +1135,11 @@ body {
                     <i class="fas fa-chart-pie"></i>
                     Positions
                 </a>
-                <!-- Trade Platform Button -->
-    <a href="/trade" class="trade-link" style="background:#4a90e2;color:#fff;">
+                <!-- Replace your current Live Trade button in the nav-menu with this: -->
+<a href="/trade" class="trade-link live-trade-btn" title="Go to Live Trading Platform">
+    <span class="live-dot"></span>
     <i class="fas fa-bolt"></i>
-    Live Trade
+    <span class="live-text">Live Trade</span>
 </a>
 
 </nav>
@@ -1068,10 +1148,10 @@ body {
                 <button class="nav-btn settings-btn">
                     <i class="fas fa-cog"></i>
                 </button>
-                <button id="loginBtn" class="login-btn">
-                    <span class="loading-spinner"></span>
-                    <span class="btn-text">Login</span>
-                </button>
+                <button id="loginBtn" class="login-btn" type="button">
+    <span class="loading-spinner" style="display:none;"></span>
+    <span class="btn-text">Login</span>
+</button>
                 <div id="userProfile" style="display: none;">
     <div id="userAvatar"></div>
     <span id="userName"></span>
